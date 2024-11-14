@@ -2,152 +2,35 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 
-<header>
-	<div id="top-header">
-		<div class="container">
-			<ul class="header-links pull-left">
-				<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-				<li><a href="#"><i class="fa fa-envelope-o"></i>
-						email@email.com</a></li>
-				<li><a href="#"><i class="fa fa-map-marker"></i> 1734
-						Stonecoal Road</a></li>
+<nav
+	class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+	<div class="container">
+		<a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarsFurni" aria-controls="navbarsFurni"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsFurni">
+			<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+				<li class="nav-item active"><a class="nav-link"
+					href="index.html">Home</a></li>
+				<li><a class="nav-link" href="shop.html">Shop</a></li>
+				<li><a class="nav-link" href="about.html">About us</a></li>
+				<li><a class="nav-link" href="services.html">Services</a></li>
+				<li><a class="nav-link" href="blog.html">Blog</a></li>
+				<li><a class="nav-link" href="contact.html">Contact us</a></li>
 			</ul>
-			<ul class="header-links pull-right">
-				<li class="header_cart hidden-xs"><a
-					href="${pageContext.request.contextPath}/user/settings"><span>My
-							Account</span></a></li>
-				<li class="header_cart hidden-xs">
-				<c:choose>
-					<c:when test="${sessionScope.account != null}">
-						<a href="${pageContext.request.contextPath}/user/settings"> 
-							<span>
-							<c:choose>
-								<c:when test="${sessionScope.account.name == null}">
-										${sessionScope.account.userid}
-									</c:when>
-								<c:otherwise>
-										${sessionScope.account.name}
-									</c:otherwise>
-							</c:choose>
-							</span>
-						</a>
-						<a href="${pageContext.request.contextPath }/logout">Đăng Xuất</a>
-					</c:when>
-				</c:choose>
-				</li>
+
+			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
+				<li><a class="nav-link" href="cart.html"><img
+						src="images/cart.svg"></a></li>
 			</ul>
 		</div>
 	</div>
 
-	<div id="header">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- LOGO -->
-				<div class="col-md-3">
-					<div class="header-logo">
-						<a href="#" class="logo"> <img src="./img/logo.png" alt="">
-						</a>
-					</div>
-				</div>
-				<!-- /LOGO -->
-
-				<!-- SEARCH BAR -->
-				<div class="col-md-6">
-					<div class="header-search">
-						<form>
-							<select class="input-select">
-								<option value="0">All Categories</option>
-								<option value="1">Category 01</option>
-								<option value="1">Category 02</option>
-							</select> <input class="input" placeholder="Search here">
-							<button class="search-btn">Search</button>
-						</form>
-					</div>
-				</div>
-				<!-- /SEARCH BAR -->
-
-				<!-- ACCOUNT -->
-				<div class="col-md-3 clearfix">
-					<div class="header-ctn">
-						<!-- Wishlist -->
-						<div>
-							<a href="#"> <i class="fa fa-heart-o"></i> <span>Your
-									Wishlist</span>
-								<div class="qty">2</div>
-							</a>
-						</div>
-						<!-- /Wishlist -->
-
-						<!-- Cart -->
-						<div class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown"
-								aria-expanded="true"> <i class="fa fa-shopping-cart"></i> <span>Your
-									Cart</span>
-								<div class="qty">3</div>
-							</a>
-							<div class="cart-dropdown">
-								<div class="cart-list">
-									<div class="product-widget">
-										<div class="product-img">
-											<img src="./img/product01.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">
-												<a href="#">product name goes here</a>
-											</h3>
-											<h4 class="product-price">
-												<span class="qty">1x</span>$980.00
-											</h4>
-										</div>
-										<button class="delete">
-											<i class="fa fa-close"></i>
-										</button>
-									</div>
-
-									<div class="product-widget">
-										<div class="product-img">
-											<img src="./img/product02.png" alt="">
-										</div>
-										<div class="product-body">
-											<h3 class="product-name">
-												<a href="#">product name goes here</a>
-											</h3>
-											<h4 class="product-price">
-												<span class="qty">3x</span>$980.00
-											</h4>
-										</div>
-										<button class="delete">
-											<i class="fa fa-close"></i>
-										</button>
-									</div>
-								</div>
-								<div class="cart-summary">
-									<small>3 Item(s) selected</small>
-									<h5>SUBTOTAL: $2940.00</h5>
-								</div>
-								<div class="cart-btns">
-									<a href="#">View Cart</a> <a href="#">Checkout <i
-										class="fa fa-arrow-circle-right"></i></a>
-								</div>
-							</div>
-						</div>
-						<!-- /Cart -->
-
-						<!-- Menu Toogle -->
-						<div class="menu-toggle">
-							<a href="#"> <i class="fa fa-bars"></i> <span>Menu</span>
-							</a>
-						</div>
-						<!-- /Menu Toogle -->
-					</div>
-				</div>
-				<!-- /ACCOUNT -->
-			</div>
-			<!-- row -->
-		</div>
-		<!-- container -->
-	</div>
-	<!-- /MAIN HEADER -->
-</header>
+</nav>

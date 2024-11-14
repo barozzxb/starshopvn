@@ -3,80 +3,58 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url value="/" var="URL"></c:url>
 
-<div class="col-md-12">
-	<div class="section-title">
-		<h3 class="title">New Products</h3>
-		<!-- <div class="section-nav">
-			<ul class="section-tab-nav tab-nav">
-				<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-				<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-				<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-				<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
-			</ul>
-		</div> -->
-	</div>
-</div>
-<!-- /section title -->
+<div class="product-section">
+	<div class="container">
+		<div class="row">
 
-<!-- Products tab & slick -->
-<div class="col-md-12">
-	<div class="row">
-		<div class="products-tabs">
-			<!-- tab -->
-			<div id="tab1" class="tab-pane active">
-				<div class="products-slick" data-nav="#slick-nav-1">
-					<c:forEach items="${topprod}" var="prod">
-			
-						<div class="product">
-						<div class="product-img">
-							<c:url value="/image?fname=${prod.ppicture}" var="imgUrl"></c:url>
-							<img src="${imgUrl}" alt="">
-							<!-- <div class="product-label">
-								<span class="sale">-30%</span> <span class="new">NEW</span>
-							</div> -->
-						</div>
-						<div class="product-body">
-							<p class="product-category">${prod.gid }</p>
-							<h3 class="product-name">
-								<a href="${pageContext.request.contextPath }/product/info?pid=${prod.pid}">${prod.pname }</a>
-							</h3>
-							<h4 class="product-price" id="price">
-								<fmt:formatNumber value="${prod.pprice}" type="currency" currencySymbol="₫" />
-								<del class="product-old-price">$990.00</del>
-							</h4>
-<!-- 							<div class="product-rating">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i>
-							</div> -->
-							<div class="product-btns">
-								<button class="add-to-wishlist">
-									<i class="fa fa-heart-o"></i><span class="tooltipp">add
-										to wishlist</span>
-								</button>
-								<button class="add-to-compare">
-									<i class="fa fa-exchange"></i><span class="tooltipp">add
-										to compare</span>
-								</button>
-								<button class="quick-view">
-									<i class="fa fa-eye"></i><span class="tooltipp">quick
-										view</span>
-								</button>
-							</div>
-						</div>
-						<div class="add-to-cart">
-							<button class="add-to-cart-btn">
-								<i class="fa fa-shopping-cart"></i> add to cart
-							</button>
-						</div>
-					</div>
-						
-					</c:forEach>
-				
-				</div>
-				<div id="slick-nav-1" class="products-slick-nav"></div>
+			<!-- Start Column 1 -->
+			<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+				<h2 class="mb-4 section-title">Crafted with excellent material.</h2>
+				<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada.
+					Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor
+					tempor tristique.</p>
+				<p>
+					<a href="shop.html" class="btn">Explore</a>
+				</p>
 			</div>
-			<!-- /tab -->
+			<!-- End Column 1 -->
+
+			<!-- Start Column 2 -->
+			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+				<a class="product-item" href="cart.html"> <img
+					src="${URL}assets/images/product-1.png" class="img-fluid product-thumbnail">
+					<h3 class="product-title">Nordic Chair</h3> <strong
+					class="product-price">$50.00</strong> <span class="icon-cross">
+						<img src="${URL}assets/images/cross.svg" class="img-fluid">
+				</span>
+				</a>
+			</div>
+			<!-- End Column 2 -->
+
+			<!-- Start Column 3 -->
+			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+				<a class="product-item" href="cart.html"> <img
+					src="${URL}assets/images/product-2.png" class="img-fluid product-thumbnail">
+					<h3 class="product-title">Kruzo Aero Chair</h3> <strong
+					class="product-price">$78.00</strong> <span class="icon-cross">
+						<img src="${URL}assets/images/cross.svg" class="img-fluid">
+				</span>
+				</a>
+			</div>
+			<!-- End Column 3 -->
+
+			<!-- Start Column 4 -->
+			<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+				<a class="product-item" href="cart.html"> <img
+					src="${URL}assets/images/product-3.png" class="img-fluid product-thumbnail">
+					<h3 class="product-title">Ergonomic Chair</h3> <strong
+					class="product-price">$43.00</strong> <span class="icon-cross">
+						<img src="${URL}assets/images/cross.svg" class="img-fluid">
+				</span>
+				</a>
+			</div>
+			<!-- End Column 4 -->
+
 		</div>
 	</div>
 </div>

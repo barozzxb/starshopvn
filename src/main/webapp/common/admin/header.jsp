@@ -2,40 +2,35 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 
-<header>
-	<div id="top-header">
-		<div class="container">
-			<ul class="header-links pull-left">
-				<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-				<li><a href="#"><i class="fa fa-envelope-o"></i>
-						email@email.com</a></li>
-				<li><a href="#"><i class="fa fa-map-marker"></i> 1734
-						Stonecoal Road</a></li>
+<nav
+	class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+	<div class="container">
+		<a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarsFurni" aria-controls="navbarsFurni"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsFurni">
+			<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+				<li class="nav-item active"><a class="nav-link"
+					href="index.html">Home</a></li>
+				<li><a class="nav-link" href="shop.html">Shop</a></li>
+				<li><a class="nav-link" href="about.html">About us</a></li>
+				<li><a class="nav-link" href="services.html">Services</a></li>
+				<li><a class="nav-link" href="blog.html">Blog</a></li>
+				<li><a class="nav-link" href="contact.html">Contact us</a></li>
 			</ul>
-			<ul class="header-links pull-right">
-				<li class="header_cart hidden-xs"><a
-					href="${pageContext.request.contextPath}/admin/profile"><span>My
-							Account</span></a></li>
-				<li class="header_cart hidden-xs">			
-				<c:choose>
-					<c:when test="${sessionScope.account != null}">
-						<a href="${pageContext.request.contextPath}/admin/profile"> 
-						<span>
-							<c:choose>
-								<c:when test="${sessionScope.account.name == null}">
-										${sessionScope.account.userid}
-									</c:when>
-								<c:otherwise>
-										${sessionScope.account.name}
-									</c:otherwise>
-							</c:choose>
-							</span>
-						</a>
-						<a href="${pageContext.request.contextPath }/logout">Đăng Xuất</a>
-					</c:when>
-				</c:choose>
-				</li>
+
+			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
+				<li><a class="nav-link" href="cart.html"><img
+						src="images/cart.svg"></a></li>
 			</ul>
 		</div>
 	</div>
-</header>
+
+</nav>

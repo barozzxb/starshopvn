@@ -19,8 +19,8 @@ public class OrderDetail implements Serializable {
     private OrderDetailId odid;
 
     @Column(name = "dquantity")
-    private int dquantity;  // Số lượng sản phẩm trong đơn hàng
+    private int dquantity;
 
     @Column(name = "dprice")
-    private double dprice;  // Giá của sản phẩm trong đơn hàng
+    private double dprice;
 }

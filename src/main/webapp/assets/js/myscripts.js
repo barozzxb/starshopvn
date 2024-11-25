@@ -80,3 +80,23 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	
 	
+	function equalizeProductHeights() {
+	    const products = document.querySelectorAll('.product');
+	    let maxHeight = 0;
+
+	    // Reset chiều cao để tính toán
+	    products.forEach(product => product.style.height = 'auto');
+
+	    // Tìm chiều cao lớn nhất
+	    products.forEach(product => {
+	        const height = product.offsetHeight;
+	        if (height > maxHeight) maxHeight = height;
+	    });
+
+	    // Áp dụng chiều cao lớn nhất cho tất cả các thẻ product
+	    products.forEach(product => product.style.height = `${maxHeight}px`);
+	}
+
+	// Gọi hàm sau khi DOM tải xong
+	window.addEventListener('load', equalizeProductHeights);
+	window.addEventListener('resize', equalizeProductHeights);

@@ -26,9 +26,26 @@
 			</ul>
 
 			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-				<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
-				<li><a class="nav-link" href="cart.html"><img
-						src="images/cart.svg"></a></li>
+
+				<c:choose>
+					<c:when test="${sessionScope.account != null}">
+						<li><a class="nav-link"
+							href="${pageContext.request.contextPath}/admin/my"> <span>
+									<c:choose>
+										<c:when test="${sessionScope.account.name == null}">
+										${sessionScope.account.userid}
+									</c:when>
+										<c:otherwise>
+										${sessionScope.account.name}
+									</c:otherwise>
+									</c:choose>
+							</span>
+						</a></li>
+						<li><a class="nav-link"
+							href="${pageContext.request.contextPath }/logout">Đăng Xuất</a></li>
+					</c:when>
+				</c:choose>
+				<li><a class="nav-link" href="${pageContext.request.contextPath }/admin/dashboard"><i class="fa fa-shopping-bag"></i></a></li>
 			</ul>
 		</div>
 	</div>

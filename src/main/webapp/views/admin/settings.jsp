@@ -1,215 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 
-<br>
+<div class="container my-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-header text-center fw-bold">
+                    Account Settings
+                </div>
+                <ul class="nav nav-pills flex-column" id="settingsTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="accountinf-tab" data-bs-toggle="pill" href="#accountinf" role="tab" aria-controls="accountinf" aria-selected="true">Account Information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="changepass-tab" data-bs-toggle="pill" href="#changepass" role="tab" aria-controls="changepass" aria-selected="false">Change Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" id="delete-tab" data-bs-toggle="pill" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete Account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-<div class="col-xs-3">
-	<div class="panel panel-default">
-		<div class="panel-heading">Account setting</div>
-		<div class="panel-body">
-			<ul class="nav nav-pills nav-stacked">
-				<li><a href="#accountinf">Account Information</a></li>
-				<li><a href="#changepass">Change Password</a></li>
-				<li><a href="#delete">Delete Account</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
+        <!-- Content -->
+        <div class="col-md-9">
+            <div class="tab-content" id="settingsTabsContent">
+                <!-- Account Information -->
+                <div class="tab-pane fade show active" id="accountinf" role="tabpanel" aria-labelledby="accountinf-tab">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header text-center fw-bold">
+                            Account Information
+                        </div>
+                        <div class="card-body">
+                            <c:if test="${not empty alert}">
+                                <div class="alert alert-danger text-center" role="alert">
+                                    ${alert}
+                                </div>
+                            </c:if>
+                            <form action="${pageContext.request.contextPath}/admin/settings/profile" method="post">
+                                <div class="mb-3">
+                                    <label for="userid" class="form-label"><i class="fa fa-user"></i> User ID</label>
+                                    <input type="text" class="form-control" id="userid" value="${account.userid}" name="userid" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label"><i class="fa fa-user"></i> Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" value="${account.name}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label"><i class="fa fa-envelope"></i> Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your Email" name="email" value="${account.email}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phonenum" class="form-label"><i class="fa fa-phone"></i> Phone Number</label>
+                                    <input type="text" class="form-control" id="phonenum" placeholder="Enter your phone number" name="phonenum" value="${account.phonenum}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dob" class="form-label"><i class="fa fa-calendar"></i> Date of Birth</label>
+                                    <input type="date" class="form-control" id="dob" name="dob" value="${account.dob}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label"><i class="fa fa-venus-mars"></i> Gender</label>
+                                    <div>
+                                        <input type="radio" id="male" name="gender" value="male" class="form-check-input" <c:if test="${account.gender == 'male'}">checked</c:if>>
+                                        <label for="male" class="form-check-label">Male</label>
+                                        <input type="radio" id="female" name="gender" value="female" class="form-check-input ms-3" <c:if test="${account.gender == 'female'}">checked</c:if>>
+                                        <label for="female" class="form-check-label">Female</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-<div class="col-xs-9">
+                <!-- Change Password -->
+                <div class="tab-pane fade" id="changepass" role="tabpanel" aria-labelledby="changepass-tab">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header text-center fw-bold">
+                            Change Password
+                        </div>
+                        <div class="card-body">
+                            <form action="${pageContext.request.contextPath}/admin/profile/changepass" method="post">
+                                <div class="mb-3">
+                                    <label for="oldpassword" class="form-label"><i class="fa fa-lock"></i> Old Password</label>
+                                    <input type="password" class="form-control" id="oldpassword" name="oldpassword" placeholder="Enter your old password">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="newpassword" class="form-label"><i class="fa fa-lock"></i> New Password</label>
+                                    <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="Enter your new password">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="c-newpassword" class="form-label"><i class="fa fa-lock"></i> Confirm Password</label>
+                                    <input type="password" class="form-control" id="c-newpassword" name="c-newpassword" placeholder="Confirm your new password">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Update Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-	<div class="panel panel-default" id="accountinf">
-		<div class="panel-heading text-center">
-			<strong>Account Infomation</strong>
-		</div>
-		<div class="container-fluid">
-			<div class="fix-5"></div>
-			<div class="col-md-8 col-md-offset-2">
-				<c:if test="${not empty alert}">
-					<div class="alert alert-danger text-center" role="alert">
-						${alert}</div>
-				</c:if>
-				<form action="${pageContext.request.contextPath}/admin/profile"
-					method="post">
-					<div class="form-group mb-3">
-						<label for="userid"><i class="fa fa-user"></i> User ID</label> <input
-							type="text" class="form-control" id="userid"
-							value="${account.userid }" name="userid" readonly>
-					</div>
-					<div class="form-group mb-3">
-						<label for="name"><i class="fa fa-user"></i> User ID</label> <input
-							type="text" class="form-control" id="name"
-							placeholder="Enter your name" name="name"
-							value="${account.name }">
-					</div>
-					<div class="form-group mb-3">
-						<label for="email"><i class="fa fa-envelope"></i> Email</label> <input
-							type="email" class="form-control" id="email"
-							placeholder="Enter your Email" name="email">
-					</div>
-					<div class="form-group mb-3">
-						<label for="phonenum"><i class="fa fa-user"></i> Phone
-							number</label> <input type="text" class="form-control" id="phonenum"
-							placeholder="Enter your phone number" name="phonenum"
-							value="${account.phonenum }">
-					</div>
-					<div class="form-group mb-3">
-						<label for="dob"><i class="fa fa-user"></i> Date of Birth</label>
-						<input type="date" class="form-control" id="dob" name="dob"
-							value="${account.dob}" placeholder="Enter your Date of Birth">
-					</div>
-					<div class="form-group mb-3">
-						<label><i class="fa fa-user"></i> Gender: </label> <label
-							class="radio-inline"> <input type="radio" name="gender"
-							value="male"
-							<c:if test="${account.gender == 'male' }">checked</c:if>>
-							Male
-						</label> <label class="radio-inline"> <input type="radio"
-							name="gender" value="female"
-							<c:if test="${account.gender == 'female' }">checked</c:if>>
-							Female
-						</label>
-					</div>
-					<div class="form-group mb-3">
-						<button type="submit" class="btn btn-primary btn-block">Update</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div class="panel panel-default" id="changepass">
-		<div class="panel-heading text-center">
-			<strong>Change your password</strong>
-		</div>
-		<div class="container-fluid">
-		<div class="fix-5"></div>
-			<div class="col-md-8 col-md-offset-2">
-				<c:if test="${not empty alert}">
-					<div class="alert alert-danger text-center" role="alert">
-						${alert}</div>
-				</c:if>
-				<form
-					action="${pageContext.request.contextPath}/admin/profile/changepass"
-					method="post">
-					<div class="form-group mb-3">
-						<label for="userid"><i class="fa fa-user"></i> User ID</label> <input
-							type="text" class="form-control" id="userid"
-							value="${account.userid }" name="userid" readonly>
-					</div>
-					<div class="form-group mb-3">
-						<label for="email"><i class="fa fa-envelope"></i> Email</label> <input
-							type="email" class="form-control" id="email"
-							placeholder="Enter your Email" name="email">
-					</div>
-					<div class="form-group mb-3">
-						<label for="oldpassword"><i class="fa fa-password"></i>
-							Old Password</label> <input type="password" class="form-control"
-							id="oldpassword" name="oldpassword"
-							placeholder="Enter your Old Password">
-					</div>
-					<div class="form-group mb-3">
-						<label for="newpassword"><i class="fa fa-password"></i>
-							New Password</label> <input type="password" class="form-control"
-							id="newpassword" name="newpassword"
-							placeholder="Enter your New Password">
-					</div>
-					<div class="form-group mb-3">
-						<label for="c-newpassword"><i class="fa fa-password"></i>
-							Confirm Password</label> <input type="password" class="form-control"
-							id="c-newpassword" name="c-newpassword"
-							placeholder="Confirm your New Password">
-					</div>
-					<div class="form-group mb-3">
-						<button type="button" class="btn btn-primary btn-block"
-							data-toggle="modal" data-target="#validate">Update</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="validate" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">Validation</h4>
-				</div>
-
-				<!-- Modal Body -->
-				<div class="modal-body">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-4 col-md-offset-1 text-center">
-								<form class="form-horizontal" role="form">
-									<div class="form-group mt-2">
-										<label class="control-label" for="code">Enter OTP sent
-											to your email</label>
-										
-										<input type="text" class="form-control mt-2"
-											id="inputEmail3" placeholder="OTP" name="otpcode" />
-									</div>
-									
-									<div class="form-group mb-3">
-										<div class="col-xs-12">
-											<button type="submit" class="btn btn-primary">Finish</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="panel panel-default" id="delete">
-		<div class="panel-heading text-center">
-			<strong>Delete your account</strong>
-		</div>
-		<div class="container-fluid">
-		<div class="fix-5"></div>
-			<div class="col-md-8 col-md-offset-2">
-				<c:if test="${not empty alert}">
-					<div class="alert alert-danger text-center" role="alert">
-						${alert}</div>
-				</c:if>
-				<form action="${pageContext.request.contextPath}/admin/profile/changepass"
-					method="post">
-					<div class="alert alert-danger mt-2 text-center">
-  						<strong>Danger!</strong> You are about to delete your account with id <strong>${account.userid }</strong>
-					</div>
-
-					<div class="form-group mb-3">
-						<label for="userid"><i class="fa fa-user"></i> User ID</label> <input
-							type="text" class="form-control" id="userid"
-							value="${account.userid }" name="userid" readonly>
-					</div>
-					<div class="form-group mb-3">
-						<label for="email"><i class="fa fa-envelope"></i> Email</label> <input
-							type="email" class="form-control" id="email"
-							placeholder="Enter your Email" name="email">
-					</div>
-
-					<div class="form-group mb-3">
-						<label for="password"><i class="fa fa-password"></i>
-							Enter Password</label> <input type="password" class="form-control"
-							id="password" name="password"
-							placeholder="Enter your Password">
-					</div>
-					<div class="form-group mb-3">
-						<button type="submit" class="btn btn-danger btn-block">Proceed to Delete your Account</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                <!-- Delete Account -->
+                <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+                    <div class="card shadow-sm">
+                        <div class="card-header text-center fw-bold text-danger">
+                            Delete Account
+                        </div>
+                        <div class="card-body">
+                            <form action="${pageContext.request.contextPath}/admin/profile/delete" method="post">
+                                <div class="alert alert-danger text-center">
+                                    <strong>Warning!</strong> You are about to delete your account <strong>${account.userid}</strong>.
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label"><i class="fa fa-lock"></i> Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                                </div>
+                                <button type="submit" class="btn btn-danger w-100">Delete Account</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

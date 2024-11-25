@@ -3,53 +3,62 @@
 <%@ include file="/common/taglib.jsp"%>
 <c:url value="/" var="URL" />
 
-<div class="col-md-12 content">
-	<h2>Welcome to the Admin Dashboard</h2>
+<div class="container my-5">
+	<h2 class="text-center mb-4">Welcome to the Admin Dashboard</h2>
 
 	<!-- Dashboard cards -->
-	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<div class="panel panel-default bluecard">
-				<p class="panel-heading bold"><i class="fa fa-user-o"></i> &emsp;Users</p>
-				<div class="panel-body">
-					<h3>${acc_num }</h3>
-					<p>Total Users</p>
+	<div class="row g-4">
+		<div class="col-12 col-sm-6 col-lg-3">
+			<div class="card text-white bg-primary">
+				<div class="card-header d-flex align-items-center">
+					<i class="fa fa-user-o me-2"></i> Users
+				</div>
+				<div class="card-body text-center">
+					<h3 class="card-title">${acc_num }</h3>
+					<p class="card-text">Total Users</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<div class="panel panel-default redcard">
-				<p class="panel-heading bold"><i class="fa fa-newspaper-o"></i> &emsp;Posts</p>
-				<div class="panel-body">
-					<h3>30</h3>
-					<p>Total Posts</p>
+		<div class="col-12 col-sm-6 col-lg-3">
+			<div class="card text-white bg-danger">
+				<div class="card-header d-flex align-items-center">
+					<i class="fa fa-newspaper-o me-2"></i> Posts
+				</div>
+				<div class="card-body text-center">
+					<h3 class="card-title">30</h3>
+					<p class="card-text">Total Posts</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<div class="panel panel-default purplecard">
-				<p class="panel-heading bold"><i class="fa fa-tags"></i> &emsp;Genres</p>
-				<div class="panel-body">
-					<h3>${genres_num }</h3>
-					<p>Total genres</p>
+		<div class="col-12 col-sm-6 col-lg-3">
+			<div class="card text-white bg-secondary">
+				<div class="card-header d-flex align-items-center">
+					<i class="fa fa-tags me-2"></i> Genres
+				</div>
+				<div class="card-body text-center">
+					<h3 class="card-title">${genres_num }</h3>
+					<p class="card-text">Total Genres</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<div class="panel panel-default yellowcard">
-				<p class="panel-heading bold"><i class="fa fa-shopping-bag"></i> &emsp;Products</p>
-				<div class="panel-body">
-					<h3>${prod_num }</h3>
-					<p>Total Products</p>
+		<div class="col-12 col-sm-6 col-lg-3">
+			<div class="card text-white bg-warning">
+				<div class="card-header d-flex align-items-center">
+					<i class="fa fa-shopping-bag me-2"></i> Products
+				</div>
+				<div class="card-body text-center">
+					<h3 class="card-title">${prod_num }</h3>
+					<p class="card-text">Total Products</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="container mt-5">
-			<h2 class="text-center">Revenue Chart</h2>
-			<div class="card">
+	<!-- Revenue Chart -->
+	<div class="row mt-5">
+		<div class="col-12">
+			<h2 class="text-center mb-3">Revenue Chart</h2>
+			<div class="card shadow-sm">
 				<div class="card-body">
 					<canvas id="revenueChart"></canvas>
 				</div>
@@ -57,16 +66,17 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="container">
+	<!-- New Accounts Table -->
+	<div class="row mt-5">
+		<div class="col-12">
+			<h2 class="text-center mb-3">New Accounts</h2>
 			<div class="table-responsive">
-				<h2 class="text-center">New Accounts</h2>
-				<table class=" table hover">
-					<thead>
+				<table class="table table-hover table-bordered align-middle">
+					<thead class="table-dark">
 						<tr>
-							<th>User ID</th>
-							<th>Email</th>
-							<th>Account Status</th>
+							<th scope="col">User ID</th>
+							<th scope="col">Email</th>
+							<th scope="col">Account Status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -75,8 +85,12 @@
 								<td>${acc.userid }</td>
 								<td>${acc.email }</td>
 								<td>
-									<c:if test="${acc.deactivated}"><p style="color: red;">Deactivated</p></c:if>
-									<c:if test="${!acc.deactivated}"><p style="color: green;">Active</p></c:if>
+									<c:if test="${acc.deactivated}">
+										<span class="badge bg-danger">Deactivated</span>
+									</c:if>
+									<c:if test="${!acc.deactivated}">
+										<span class="badge bg-success">Active</span>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>

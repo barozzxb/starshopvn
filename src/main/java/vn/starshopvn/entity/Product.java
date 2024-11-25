@@ -1,6 +1,7 @@
 package vn.starshopvn.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -46,16 +47,16 @@ public class Product implements Serializable {
 	@Column(name = "ppicture", columnDefinition = "nvarchar(5000)")
 	private String ppicture;
 	
-	@Column(name = "pmanufacturer", columnDefinition = "nvarchar(255)")
-	private String pmanufacturer;
-	
 	@Column(name = "prating")
 	private int prating;
 
+	@Column(name = "createdat", columnDefinition = "timestamp")
+	private Timestamp createdat;
+	
 	@ManyToOne
     @JoinColumn(name = "gid", nullable = false)
     private Genre genre;
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderDetailId> orderDetails;
+	@OneToMany(mappedBy = "odid.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderDetail> orderDetails;
 }

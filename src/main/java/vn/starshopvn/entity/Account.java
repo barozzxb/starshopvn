@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -23,7 +25,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Accounts")
-@NamedQuery(name = "Account.findAll", query = "select a from Account a where a.roleId = 2")
+@NamedQuery(name = "Account.findAll", query = "select a from Account a where a.role.roleid = 2")
 public class Account implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -58,20 +60,12 @@ public class Account implements Serializable{
 	@Column(name = "isDeactivated", columnDefinition = "boolean")
 	private boolean isDeactivated;
 	
-	@Column(name = "roleId", columnDefinition = "int")
-	private Integer roleId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "roleid")
+	private Role role;
 	
 	@Column(name = "createdat", columnDefinition = "timestamp")
 	private Timestamp createdat;
-	
-	public Account(String userid, String password, @Email(message = "Email must be in the right form") String email,
-			Integer roleId) {
-		super();
-		this.userid = userid;
-		this.password = password;
-		this.email = email;
-		this.roleId = roleId;
-	}
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -81,4 +75,23 @@ public class Account implements Serializable{
 
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Order> orders;
+	
+	public Account(String userid, String password, @Email(message = "Email must be in the right form") String email) {
+		super();
+		this.userid = userid;
+		this.password = password;
+		this.email = email;
+	}
+
+	public Account(String userid, String password, @Email(message = "Email must be in the right form") String email,
+			boolean isDeactivated, Role role, Timestamp createdat) {
+		super();
+		this.userid = userid;
+		this.password = password;
+		this.email = email;
+		this.isDeactivated = isDeactivated;
+		this.role = role;
+		this.createdat = createdat;
+	}
+	
 }

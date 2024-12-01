@@ -1,7 +1,7 @@
 package vn.starshopvn.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -41,17 +41,17 @@ public class Product implements Serializable {
 	@Column(name = "pprice")
 	private int pprice;
 	
-	@Column(name = "pinfo", columnDefinition = "nvarchar(5000)")
+	@Column(name = "pinfo", columnDefinition = "nvarchar(MAX)")
 	private String pinfo;
 	
-	@Column(name = "ppicture", columnDefinition = "nvarchar(5000)")
+	@Column(name = "ppicture", columnDefinition = "nvarchar(MAX)")
 	private String ppicture;
 	
 	@Column(name = "prating")
 	private int prating;
 
-	@Column(name = "createdat", columnDefinition = "timestamp")
-	private Timestamp createdat;
+	@Column(name = "createdat", columnDefinition = "datetime2")
+	private LocalDateTime createdat;
 	
 	@ManyToOne
     @JoinColumn(name = "gid", nullable = false)

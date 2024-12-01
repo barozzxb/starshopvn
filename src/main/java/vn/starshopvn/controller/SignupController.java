@@ -1,8 +1,9 @@
 package vn.starshopvn.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
+
+import java.time.LocalDateTime;
+
 
 
 import jakarta.servlet.ServletException;
@@ -60,7 +61,7 @@ public class SignupController extends HttpServlet {
 			req.setAttribute("alert", alert);
 			req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
 		} else {
-			Timestamp createddate = new Timestamp(new Date().getTime());
+			LocalDateTime createddate = LocalDateTime.now();
 			Account acc = new Account(userid, password, email, false, rServ.findById(2), createddate);
 			boolean signup_done = aServ.insert(acc);
 			if (signup_done) {

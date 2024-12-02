@@ -1,7 +1,8 @@
 package vn.starshopvn.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -57,15 +58,15 @@ public class Account implements Serializable{
 	@Column(name = "address", columnDefinition = "nvarchar(255)")
 	private String address;
 	
-	@Column(name = "isDeactivated", columnDefinition = "boolean")
+	@Column(name = "isDeactivated", columnDefinition = "bit")
 	private boolean isDeactivated;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "roleid")
 	private Role role;
 	
-	@Column(name = "createdat", columnDefinition = "timestamp")
-	private Timestamp createdat;
+	@Column(name = "createdat", columnDefinition = "datetime2")
+	private LocalDateTime createdat;
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -84,7 +85,7 @@ public class Account implements Serializable{
 	}
 
 	public Account(String userid, String password, @Email(message = "Email must be in the right form") String email,
-			boolean isDeactivated, Role role, Timestamp createdat) {
+			boolean isDeactivated, Role role, LocalDateTime createdat) {
 		super();
 		this.userid = userid;
 		this.password = password;

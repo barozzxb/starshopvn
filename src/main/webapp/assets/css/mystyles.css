@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/*----------------------------*\
+	My Style
+\*----------------------------*/
+
+.btn-google {
+  color: white;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white;
+  background-color: #3b5998;
+}
+
+.centered-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sidebar {
+	padding: 10px;
+	background-color: #f8f8f8;
+	border-right: 1px solid #ddd;
+	width: 100%; /* Full height */
+	margin-left: 20px; /* Không có khoảng cách bên ngoài */
+}
+
+
+/* Màu nền xanh pastel tươi sáng */
+.bluecard {
+    background-color: #a8d8ea; /* Xanh pastel sáng */
+    border: 1px solid #94c5d9;
+}
+
+/* Màu nền đỏ pastel tươi sáng */
+.redcard {
+    background-color: #f7a8a8; /* Đỏ pastel sáng */
+    border: 1px solid #f09393;
+}
+
+/* Màu nền xanh lá pastel tươi sáng */
+.greencard {
+    background-color: #b0eacd; /* Xanh lá pastel sáng */
+    border: 1px solid #9bd8bc;
+}
+
+/* Màu nền vàng pastel tươi sáng */
+.yellowcard {
+    background-color: #fff3b0; /* Vàng pastel sáng */
+    border: 1px solid #e6e097;
+}
+
+/* Màu nền tím pastel tươi sáng */
+.purplecard {
+    background-color: #d4bfff; /* Tím pastel sáng */
+    border: 1px solid #c1a8e6;
+}
+
+.panel-heading.bold{
+	font-weight: bold;
+}
+
+table th,
+table td {
+  vertical-align: middle; /* Vertically center content within cells */
+}
+
+
+.nav-tab {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.nav-tab.active a {
+  /* Style for active tab links (e.g., background color, font weight) */
+  font-weight: bold;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+}
+
+/* Margin for components */
+.mt-1, .fix-1{ margin-top: 5px; margin-bottom: 5px; }
+.mt-2, .fix-2{ margin-top: 10px; margin-bottom: 10px;}
+.mt-3, .fix-3{ margin-top: 15px; margin-bottom: 15px;}
+.mt-4, .fix-4{ margin-top: 20px; margin-bottom: 20px;}
+.mt-5, .fix-5{ margin-top: 25px; margin-bottom: 25px;}
+
+/* Non-resizable textarea*/
+textarea{
+	resize: none;
+}

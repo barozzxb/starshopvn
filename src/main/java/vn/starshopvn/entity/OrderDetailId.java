@@ -18,4 +18,22 @@ public class OrderDetailId implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "pid", nullable = false)
 	private Product product;
+	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderDetailId that = (OrderDetailId) o;
+
+        if (order != null ? !order.equals(that.order) : that.order != null) return false; 
+        return product != null ? product.equals(that.product) : that.product == null;   
+    }
+
+    @Override
+    public int hashCode() {
+        int result = order != null ? order.hashCode() : 0; 
+        result = 31 * result + (product != null ? product.hashCode() : 0); 
+        return result;
+    }
 }

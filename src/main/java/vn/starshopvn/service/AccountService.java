@@ -25,4 +25,6 @@ public interface AccountService {
 	boolean setActive(String userid);
 
 	boolean setDeactive(String userid);
+	
+	boolean updateAccount(Account account);
 }

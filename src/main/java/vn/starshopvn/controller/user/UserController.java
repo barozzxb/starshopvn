@@ -18,26 +18,33 @@ import vn.starshopvn.service.impl.GenreServiceImpl;
 import vn.starshopvn.service.impl.ProductServiceImpl;
 
 @WebServlet(urlPatterns = {"/user/home", "/user"})
-public class UserController extends HttpServlet{
+public class UserController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	
-	GenreService genreServ = new GenreServiceImpl();
-	ProductService prodServ = new ProductServiceImpl();
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		if (session != null && session.getAttribute("account") != null) {
-			Account u = (Account) session.getAttribute("account");
-			req.setAttribute("account", u);
-			
-			List<Genre> genres = genreServ.findAll();
-			req.setAttribute("genres", genres);
-			
-			List<Product> newprods = prodServ.top3new();
-			req.setAttribute("topprod", newprods);
-			req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
-		}
-	}
+    private static final long serialVersionUID = 1L;
+
+    GenreService genreServ = new GenreServiceImpl();
+    ProductService prodServ = new ProductServiceImpl();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+
+        // Kiểm tra nếu session không có tài khoản người dùng thì chuyển về trang login
+        if (session == null || session.getAttribute("account") == null) {
+            resp.sendRedirect(req.getContextPath() + "/login"); // Chuyển hướng về trang đăng nhập
+            return;
+        }
+
+        // Nếu đã đăng nhập, lấy tài khoản từ session và hiển thị thông tin
+        Account u = (Account) session.getAttribute("account");
+        req.setAttribute("account", u);
+
+        List<Genre> genres = genreServ.findAll();
+        req.setAttribute("genres", genres);
+
+        List<Product> newprods = prodServ.top3new();
+        req.setAttribute("topprod", newprods);
+
+        req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
+    }
 }

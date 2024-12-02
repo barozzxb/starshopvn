@@ -1,6 +1,15 @@
 package vn.starshopvn.service.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+
+import java.sql.SQLException;
+
 
 import vn.starshopvn.dao.AccountDAO;
 import vn.starshopvn.dao.impl.AccountDAOImpl;
@@ -95,4 +104,33 @@ public class AccountServiceImpl implements AccountService{
 			return false;
 		}
 	}
+	// Tạo EntityManager từ Persistence
+    private EntityManager entityManager = Persistence.createEntityManagerFactory("dataSource").createEntityManager();
+
+
+    @Override
+    public boolean updateAccount(Account account) {
+        EntityTransaction transaction = null;
+        
+        try {
+            // Bắt đầu giao dịch
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            // Sử dụng merge để cập nhật tài khoản
+            entityManager.merge(account);
+
+            // Commit giao dịch
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            // Nếu có lỗi, rollback giao dịch
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+  
 }

@@ -19,9 +19,9 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 	@Override
-	public Product findById(String productId) {
+	public Product findById(String pid) {
 		EntityManager enma = JPAConfig.getEntityManager();
-		Product pro = enma.find(Product.class, productId);
+		Product pro = enma.find(Product.class, pid);
 		return pro;
 	}
 

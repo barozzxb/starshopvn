@@ -76,6 +76,9 @@ public class Account implements Serializable{
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Order> orders;
 	
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Favorites> favorites;
+	
 	public Account(String userid, String password, @Email(message = "Email must be in the right form") String email) {
 		super();
 		this.userid = userid;

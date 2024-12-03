@@ -31,7 +31,8 @@
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<!-- Duyệt qua danh sách genres từ model -->
 						<c:forEach var="genre" items="${genres}">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/genres/products?gid=${genre.gid}">${genre.gname}</a></li>
+							<li><a class="dropdown-item"
+								href="${pageContext.request.contextPath}/user/genres/products?gid=${genre.gid}">${genre.gname}</a></li>
 						</c:forEach>
 					</ul></li>
 			</ul>
@@ -54,6 +55,10 @@
 					</c:choose></li>
 				<li><a class="nav-link" href="cart.html"><i
 						class="fa fa-shopping-bag"></i></a></li>
+				<li><a class="nav-link"
+					href="${pageContext.request.contextPath}/user/product/favorites">
+						<i class="fa fa-heart"></i>
+				</a></li>
 			</ul>
 		</div>
 	</div>

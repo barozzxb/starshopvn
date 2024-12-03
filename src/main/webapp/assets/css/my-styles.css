@@ -5,3 +5,16 @@
 .duplicate-header {
     display: none !important;
 }
+/* Phóng to hình ảnh sản phẩm */
+.product-image img.zoomed-image {
+    width: 100%; /* Đảm bảo hình ảnh chiếm hết không gian */
+    max-width: 500px; /* Giới hạn độ rộng tối đa của hình ảnh */
+    height: auto; /* Giữ tỷ lệ gốc của hình ảnh */
+}
+
+/* Tùy chỉnh khi hình ảnh được phóng to */
+.product-image img.zoomed-image:hover {
+    transform: scale(1.2); /* Phóng to khi hover */
+    transition: transform 0.3s ease; /* Hiệu ứng mượt mà */
+}
+

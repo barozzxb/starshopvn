@@ -6,15 +6,20 @@
     <div class="container">
         <div class="row">
 
-            <!-- Left side - Product Image and Details -->
-            <div class="col-md-12 col-lg-6">
-                <h2 class="product-title">${p.pname}</h2>
-                
+            <!-- Left side - Product Image -->
+            <div class="col-md-12 col-lg-6 mb-4 mb-lg-0">
                 <!-- Product Image -->
                 <div class="product-image">
-                    <c:url value="/image?fname=${p.ppicture}" var="imgUrl"></c:url>
-                    <img src="${imgUrl}" class="img-fluid" alt="${p.pname}">
+                    <c:url value="/image?fname=${product.ppicture}" var="imgUrl"></c:url>
+                    <!-- Phóng to hình ảnh bằng cách tăng kích thước -->
+                    <img src="${imgUrl}" style="width: 85%; max-width: 400px; height: auto;" alt="${product.pname}">
                 </div>
+            </div>
+
+            <!-- Right side - Product Details -->
+            <div class="col-md-12 col-lg-6">
+                <!-- Product Name -->
+                <h2 class="product-title">${product.pname}</h2>
 
                 <!-- Product Description -->
                 <div class="product-description mt-4">
@@ -40,11 +45,9 @@
                         <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
                     </form>
                 </div>
-            </div>
 
-            <!-- Right side - Sidebar or Related Products -->
-            <div class="col-md-12 col-lg-6">
-                <div class="sidebar">
+                <!-- Related Products Sidebar -->
+                <div class="sidebar mt-5">
                     <h4>Related Products</h4>
                     <ul class="related-products">
                         <c:forEach items="${relatedProducts}" var="relatedProd">

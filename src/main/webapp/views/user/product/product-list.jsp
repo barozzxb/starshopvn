@@ -20,18 +20,26 @@
             <c:forEach items="${products}" var="prod">
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <c:url value="/image?fname=${prod.ppicture}" var="imgUrl"></c:url>
-                    <a class="product-item" href="${pageContext.request.contextPath}/user/product/detail?pid=${prod.pid}"> <!-- Link to product-detail.jsp -->
-                        <img src="${imgUrl}" class="img-fluid product-thumbnail">
+                    
+                    <!-- Link to product detail page when clicking the image -->
+                    <a class="product-item" href="${pageContext.request.contextPath}/user/product/detail?pid=${prod.pid}">
+                        <img src="${imgUrl}" class="img-fluid product-thumbnail" alt="${prod.pname}">
                         <h3 class="product-title">${prod.pname}</h3>
                         <strong class="product-price">
                             <fmt:formatNumber value="${prod.pprice}" type="currency" currencySymbol="" /> vnđ
                         </strong>
-                        <span class="icon-cross">
-                            <img src="${URL}assets/images/cross.svg" class="img-fluid">
-                        </span>
                     </a>
+
+                    <!-- Add to Cart button -->
+                    <form action="${pageContext.request.contextPath}/cart/add" method="post" class="add-to-cart-form">
+                        <input type="hidden" name="pid" value="${prod.pid}"/>
+                        <button type="submit" class="btn btn-success add-to-cart-btn">
+                            <span>+</span> Add to Cart
+                        </button>
+                    </form>
                 </div>
             </c:forEach>
+
         </div>
     </div>
 </div>

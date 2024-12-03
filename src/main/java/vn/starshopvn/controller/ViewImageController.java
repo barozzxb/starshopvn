@@ -19,19 +19,36 @@ import vn.starshopvn.ultis.Constant;
 	<img src="{imgUrl}"/>
 */
 
-@SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/image")
 public class ViewImageController extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String fileName = req.getParameter("fname");
+        if (fileName == null || fileName.trim().isEmpty()) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Filename parameter is missing or invalid");
+            return;
+        }
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String fileName = req.getParameter("fname");
-		File file = new File(Constant.upDir + "/" + fileName);
-		resp.setContentType("image/jpeg");
-		if (file.exists()) {
-			IOUtils.copy(new FileInputStream(file), resp.getOutputStream());
-		}
-	}
+        File file = new File(Constant.upDir + "/" + fileName);
+        if (!file.exists() || !file.canRead()) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found or no read permission");
+            return;
+        }
+
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        String mimeType = "image/jpeg";  // Default MIME type
+
+        if ("png".equals(fileExtension)) {
+            mimeType = "image/png";
+        } else if ("gif".equals(fileExtension)) {
+            mimeType = "image/gif";
+        }
+
+        resp.setContentType(mimeType);
+        try (FileInputStream fis = new FileInputStream(file)) {
+            IOUtils.copy(fis, resp.getOutputStream());
+        }
+    }
 }

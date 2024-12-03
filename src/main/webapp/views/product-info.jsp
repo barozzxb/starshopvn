@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
-
+<%@ include file="/common/user/header.jsp" %>
 <div class="row">
 	<!-- Product main img -->
 	<div class="col-md-5 col-md-push-2">

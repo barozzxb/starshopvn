@@ -109,4 +109,25 @@ public class ProductDAOImpl implements ProductDAO{
 		query.setMaxResults(6);
 		return query.getResultList();
 	}
+
+	
+	@Override
+	public List<Product> findByGenre(String gid) {
+		 EntityManager enma = JPAConfig.getEntityManager();
+		    try {
+		        // JPQL truy vấn danh sách sản phẩm thuộc thể loại cụ thể
+		        String jpql = "SELECT p FROM Product p WHERE p.genre.gid = :gid";
+		        TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
+		        query.setParameter("gid", gid); // Thiết lập giá trị gid cho tham số trong JPQL
+
+		        return query.getResultList(); // Trả về danh sách sản phẩm
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        return null; // Trả về null nếu xảy ra lỗi
+		    } finally {
+		        if (enma != null && enma.isOpen()) {
+		            enma.close(); // Đảm bảo đóng EntityManager
+		        }
+		    }
+	}
 }

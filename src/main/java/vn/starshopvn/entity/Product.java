@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,9 +55,14 @@ public class Product implements Serializable {
 	private Timestamp createdat;
 	
 	@ManyToOne
-    @JoinColumn(name = "gid", nullable = false)
-    private Genre genre;
+	@JoinColumn(name = "gid", nullable = false)
 	
+	private Genre genre;
+
 	@OneToMany(mappedBy = "odid.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderDetail> orderDetails;
+	
+	private List<OrderDetail> orderDetails;
+
+	
+	
 }

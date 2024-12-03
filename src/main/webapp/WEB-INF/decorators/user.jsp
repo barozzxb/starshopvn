@@ -20,6 +20,13 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link href="${URL}assets/css/tiny-slider.css" rel="stylesheet">
 <link href="${URL}assets/css/style.css" rel="stylesheet">
+<link href="${URL}assets/css/my-style.css" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS (Cần thiết cho dropdown hoạt động) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <title>Starshop - Fresh Flower For You</title>
 </head>
 <body>

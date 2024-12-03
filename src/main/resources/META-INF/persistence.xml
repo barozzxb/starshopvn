@@ -6,12 +6,12 @@
 	version="3.0">
 	
 	<persistence-unit name="dataSource">
-		<class></class>
+
 		<properties>
 			<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 			<property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/starshopvn" />
 			<property name="jakarta.persistence.jdbc.user" value="root" />
-			<property name="jakarta.persistence.jdbc.password" value="xuanbao" />
+			<property name="jakarta.persistence.jdbc.password" value="haianh123" />
 			<property name="jakarta.persistence.schema-generation.database.action" value="update" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.show_sql" value="true" />

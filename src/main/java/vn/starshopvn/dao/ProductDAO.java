@@ -21,5 +21,8 @@ public interface ProductDAO {
 	Product findById(String productId);
 
 	List<Product> findAll();
+	
+	List<Product> findByGenre(String gid);
 
+	
 }

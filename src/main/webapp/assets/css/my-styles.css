@@ -2,3 +2,6 @@
 .hidden {
     display: none !important;
 }
+.duplicate-header {
+    display: none !important;
+}

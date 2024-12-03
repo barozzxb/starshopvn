@@ -34,7 +34,9 @@ public class Genre {
 	@Column(name="gdescription", columnDefinition = "NVARCHAR(5000)")
 	private String gdescription;
 	
-	@OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	
+	
+	@OneToMany(mappedBy = "genre")
     private List<Product> products;
 	
 	@Transient

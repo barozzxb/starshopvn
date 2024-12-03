@@ -50,7 +50,7 @@
 					<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
 				</ul>
 			</div>
-
+			
 			<div class="col-lg-8">
 				<div class="row links-wrap">
 					<div class="col-6 col-sm-6 col-md-3">
@@ -59,6 +59,7 @@
 							<li><a href="#">Services</a></li>
 							<li><a href="#">Blog</a></li>
 							<li><a href="#">Contact us</a></li>
+
 						</ul>
 					</div>
 

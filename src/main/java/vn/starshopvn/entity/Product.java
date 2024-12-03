@@ -61,6 +61,6 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "odid.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
     
-    @OneToMany(mappedBy= "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy= "fid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Favorites> favorite;
 }

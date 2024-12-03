@@ -55,7 +55,7 @@ public class ProductController extends HttpServlet {
             }
             req.setAttribute("product", p);
 
-            // Lưu sản phẩm đã xem vào session
+            // Lưu sản phẩm đã xem vào session và chỉ giữ 3 sản phẩm gần nhất
             List<Product> viewedProducts = (List<Product>) session.getAttribute("viewedProducts");
             if (viewedProducts == null) {
                 viewedProducts = new ArrayList<>();
@@ -66,9 +66,16 @@ public class ProductController extends HttpServlet {
                                                .collect(Collectors.toList());
             }
 
+            // Thêm sản phẩm vào danh sách đã xem nếu chưa có
             if (!viewedProducts.stream().anyMatch(v -> v.getPid().equals(pid))) {
-                viewedProducts.add(p);
+                viewedProducts.add(0, p); // Thêm vào đầu danh sách
             }
+
+            // Giới hạn chỉ giữ 3 sản phẩm đã xem gần nhất
+            if (viewedProducts.size() > 3) {
+                viewedProducts = viewedProducts.subList(0, 3); // Giữ lại 3 sản phẩm gần nhất
+            }
+
             session.setAttribute("viewedProducts", viewedProducts);
 
             req.getRequestDispatcher("/views/user/product/product-detail.jsp").forward(req, resp);

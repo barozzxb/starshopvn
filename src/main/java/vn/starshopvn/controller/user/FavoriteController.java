@@ -77,7 +77,7 @@ public class FavoriteController extends HttpServlet {
                 List<Favorites> likedFavorites = favSer.findByUserId(account.getUserid());
                 List<Product> likedProducts = likedFavorites.stream().map(Favorites::getProduct).toList();
                 req.setAttribute("likedProducts", likedProducts);
-                System.out.println("Liked products: " + likedProducts);
+
             } else {
                 req.setAttribute("likedProducts", new ArrayList<Product>());
             }

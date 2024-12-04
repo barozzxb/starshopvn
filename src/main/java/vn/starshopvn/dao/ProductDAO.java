@@ -18,8 +18,11 @@ public interface ProductDAO {
 
 	void insert(Product product);
 
-	Product findById(String productId);
+	Product findById(String pid);
 
 	List<Product> findAll();
+	
+	List<Product> findByGenre(String gid);
 
+	
 }

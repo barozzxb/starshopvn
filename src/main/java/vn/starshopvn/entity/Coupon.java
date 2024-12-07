@@ -1,7 +1,8 @@
 package vn.starshopvn.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,9 +34,9 @@ public class Coupon implements Serializable{
 	@Column(name = "cpercent", columnDefinition = "nvarchar(255)")
 	private String cpercent;
 	
-	@Column(name = "start", columnDefinition = "timestamp")
-	private Timestamp start;
+	@Column(name = "startDate", columnDefinition = "datetime2")
+	private LocalDateTime start;
 	
-	@Column(name = "end", columnDefinition = "timestamp")
-	private Timestamp end;
+	@Column(name = "endDate", columnDefinition = "datetime2")
+	private LocalDateTime end;
 }

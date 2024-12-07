@@ -6,7 +6,7 @@
 	class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 	<div class="container">
-		<a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+		<a class="navbar-brand" href="index.jsp">Starshop<span>.</span></a>
 
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarsFurni" aria-controls="navbarsFurni"

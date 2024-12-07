@@ -1,21 +1,86 @@
 @charset "UTF-8";
+
+/* Ẩn các phần tử không cần thiết */
 .hidden {
     display: none !important;
 }
+
 .duplicate-header {
     display: none !important;
 }
-/* Phóng to hình ảnh sản phẩm */
+
+/* Phóng to hình ảnh sản phẩm khi hover */
 .product-image img.zoomed-image {
     width: 100%; /* Đảm bảo hình ảnh chiếm hết không gian */
     max-width: 500px; /* Giới hạn độ rộng tối đa của hình ảnh */
     height: auto; /* Giữ tỷ lệ gốc của hình ảnh */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Thêm hiệu ứng chuyển động mượt mà */
 }
 
 /* Tùy chỉnh khi hình ảnh được phóng to */
 .product-image img.zoomed-image:hover {
-    transform: scale(1.2); /* Phóng to khi hover */
-    transition: transform 0.3s ease; /* Hiệu ứng mượt mà */
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+    filter: brightness(1.1); /* Thêm hiệu ứng làm sáng hình ảnh khi hover */
 }
 
+/* Các sản phẩm đã xem */
+.recently-viewed-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Sắp xếp các sản phẩm với khoảng cách đều */
+    gap: 20px; /* Khoảng cách giữa các sản phẩm */
+    padding: 20px 0;
+    overflow-x: auto; /* Cho phép cuộn ngang nếu danh sách dài */
+}
 
+/* Mỗi sản phẩm */
+.recently-viewed-products .product-item {
+    flex: 1 1 30%; /* Mỗi sản phẩm chiếm 30% chiều rộng */
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng box-shadow */
+}
+
+/* Hiệu ứng khi hover vào sản phẩm */
+.recently-viewed-products .product-item:hover {
+    transform: scale(1.05); /* Phóng to sản phẩm khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng mờ khi hover */
+}
+
+/* Kích thước ảnh thumbnail trong sản phẩm đã xem */
+.recently-viewed-products .product-thumbnail {
+    width: 100%; /* Đảm bảo ảnh chiếm hết chiều rộng */
+    height: auto;
+    max-width: 200px; /* Giới hạn chiều rộng ảnh */
+    margin-bottom: 10px;
+    object-fit: cover; /* Đảm bảo ảnh không bị méo và phù hợp với khung ảnh */
+}
+
+/* Tiêu đề của sản phẩm */
+.recently-viewed-products .product-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333; /* Màu sắc của tiêu đề */
+}
+
+/* Giá của sản phẩm */
+.recently-viewed-products .product-price {
+    font-size: 1.1rem;
+    color: #e74c3c;
+}
+
+/* Đảm bảo rằng các sản phẩm đã xem không bị quá nhỏ trên các màn hình nhỏ */
+@media (max-width: 767px) {
+    .recently-viewed-products .product-item {
+        flex: 1 1 100%; /* Mỗi sản phẩm chiếm toàn bộ chiều rộng khi trên màn hình nhỏ */
+    }
+
+    /* Điều chỉnh lại kích thước ảnh thumbnail cho phù hợp với màn hình nhỏ */
+    .recently-viewed-products .product-thumbnail {
+        max-width: 150px; /* Giới hạn kích thước ảnh cho màn hình nhỏ */
+    }
+}

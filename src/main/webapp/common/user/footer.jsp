@@ -4,6 +4,8 @@
 <footer class="footer-section">
 	<div class="container relative">
 
+
+
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="subscription-form">

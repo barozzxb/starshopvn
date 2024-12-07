@@ -36,6 +36,14 @@ public class Favorites implements Serializable{
 	@JoinColumn(name = "pid", nullable = false) 
 	private Product product;
 	
-	
+	@Override
+	public String toString() {
+	    return "Favorites{" +
+	            "fid='" + fid + '\'' +
+	            ", accountId=" + (account != null ? account.getUserid() : "null") +
+	            ", productId=" + (product != null ? product.getPid() : "null") +
+	            '}';
+	}
+
 
 }

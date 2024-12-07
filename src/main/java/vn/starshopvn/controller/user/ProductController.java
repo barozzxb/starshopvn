@@ -66,14 +66,12 @@ public class ProductController extends HttpServlet {
                                                .collect(Collectors.toList());
             }
 
-            // Thêm sản phẩm vào danh sách đã xem nếu chưa có
             if (!viewedProducts.stream().anyMatch(v -> v.getPid().equals(pid))) {
-                viewedProducts.add(0, p); // Thêm vào đầu danh sách
+                viewedProducts.add(0, p); 
             }
 
-            // Giới hạn chỉ giữ 3 sản phẩm đã xem gần nhất
             if (viewedProducts.size() > 3) {
-                viewedProducts = viewedProducts.subList(0, 3); // Giữ lại 3 sản phẩm gần nhất
+                viewedProducts = viewedProducts.subList(0, 3); 
             }
 
             session.setAttribute("viewedProducts", viewedProducts);
@@ -94,5 +92,6 @@ public class ProductController extends HttpServlet {
             req.setAttribute("products", list);
             req.getRequestDispatcher("/views/user/product/product-list.jsp").forward(req, resp);
         }
+        
     }
 }

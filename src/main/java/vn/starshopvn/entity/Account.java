@@ -97,4 +97,22 @@ public class Account implements Serializable{
 		this.createdat = createdat;
 	}
 	
+	@Override
+	public String toString() {
+	    return "Account{" +
+	            "userid='" + userid + '\'' +
+	            ", name='" + name + '\'' +
+	            ", email='" + email + '\'' +
+	            ", gender='" + gender + '\'' +
+	            ", address='" + address + '\'' +
+	            ", isDeactivated=" + isDeactivated +
+	            ", role=" + (role != null ? role.getRoleid() : "null") +
+	            ", createdat=" + createdat +
+	            ", postsCount=" + (posts != null ? posts.size() : 0) +
+	            ", deliveryInfosCount=" + (deliveryinfos != null ? deliveryinfos.size() : 0) +
+	            ", ordersCount=" + (orders != null ? orders.size() : 0) +
+	            ", favoritesCount=" + (favorites != null ? favorites.size() : 0) +
+	            '}';
+	}
+
 }

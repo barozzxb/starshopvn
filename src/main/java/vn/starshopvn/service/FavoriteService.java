@@ -10,5 +10,5 @@ public interface FavoriteService {
 	boolean insert(Favorites favorite);  
 	boolean delete (String fid); 
 	List<Favorites> findByUserId(String userid);
-
+	
 }

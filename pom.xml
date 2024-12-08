@@ -9,6 +9,7 @@
 	<name>starshop.vn</name>
 
 	<dependencies>
+		
 
 		<dependency>
 			<groupId>mysql</groupId>

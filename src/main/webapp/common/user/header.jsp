@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/my-styles.css">
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
     <div class="container">
         <a class="navbar-brand" href="index.jsp">Starshop<span>.</span></a>
@@ -21,7 +22,7 @@
                     Genres </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <c:forEach var="genre" items="${listgenres}">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/genres/products?gid=${genre.gid}">
+                            <li><a class="list-group-item" href="${pageContext.request.contextPath}/user/genres/products?gid=${genre.gid}">
                                 ${genre.gname}
                             </a></li>
                         </c:forEach>

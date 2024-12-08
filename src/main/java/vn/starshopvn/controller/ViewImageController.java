@@ -19,7 +19,7 @@ import vn.starshopvn.ultis.Constant;
 	<img src="{imgUrl}"/>
 */
 
-@SuppressWarnings("serial")
+
 @WebServlet(urlPatterns = "/image")
 public class ViewImageController extends HttpServlet {
 

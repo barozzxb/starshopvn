@@ -1,6 +1,7 @@
 package vn.starshopvn.entity;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,8 +27,8 @@ public class Post {
 	@Column(name = "poid", columnDefinition = "nvarchar(255)")
 	private String poid;
 	
-	@Column(name = "createdat", columnDefinition = "timestamp")
-	private Timestamp createdat;
+	@Column(name = "createdat", columnDefinition = "datetime2")
+	private LocalDateTime createdat;
 	
 	@Column(name = "genre", columnDefinition = "nvarchar(255)")
 	private String genre;
@@ -35,7 +36,7 @@ public class Post {
 	@Column(name = "title", columnDefinition = "nvarchar(255)")
 	private String title;
 	
-	@Column(name = "content", columnDefinition = "nvarchar(5000)")
+	@Column(name = "content", columnDefinition = "nvarchar(MAX)")
 	private String content;
 	
 	@Column(name = "image", columnDefinition = "nvarchar(255)")
@@ -44,7 +45,7 @@ public class Post {
 	@Column(name = "tag", columnDefinition = "nvarchar(255)")
 	private String tag;
 	
-	@Column(name = "iscensored", columnDefinition = "boolean")
+	@Column(name = "iscensored", columnDefinition = "bit")
 	private boolean iscensored;
 	
 	@ManyToOne

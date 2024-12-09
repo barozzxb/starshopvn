@@ -62,7 +62,7 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Account login(String userid, String password) {
 		Account acc = aDAO.findById(userid);
-		if (acc != null) {
+		if (acc != null && acc.isDeactivated() == false) {
 			if (password.equals(acc.getPassword())) {
 				return acc;
 			} else return null;

@@ -74,4 +74,14 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> top3new() {
 		return pDAO.top3new();
 	}
+
+	@Override
+	public List<Product> findByGenre(String gid) {
+		return pDAO.findByGenre(gid);
+	}
+
+
+
+
+	
 }

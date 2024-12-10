@@ -62,12 +62,23 @@ public class ProductController extends HttpServlet {
             List<Review> reviews = reviewSer.findByProductId(pid);
             req.setAttribute("reviews", reviews);
 
+            // Kiểm tra xem mediaUrl có phải là video không
+            for (Review review : reviews) {
+                if (review.getMediaUrl() != null) {
+                    String mediaUrl = review.getMediaUrl();
+                    if (mediaUrl.endsWith(".mp4") || mediaUrl.endsWith(".webm") || mediaUrl.endsWith(".ogg")) {
+                        review.setVideo(true);  // Thêm thuộc tính cho review
+                    } else {
+                        review.setVideo(false);
+                    }
+                }
+            }
+
             // Lưu sản phẩm đã xem vào session và chỉ giữ 3 sản phẩm gần nhất
             List<Product> viewedProducts = (List<Product>) session.getAttribute("viewedProducts");
             if (viewedProducts == null) {
                 viewedProducts = new ArrayList<>();
             } else {
-                // Lọc bỏ phần tử null
                 viewedProducts = viewedProducts.stream()
                                                .filter(Objects::nonNull)
                                                .collect(Collectors.toList());
@@ -85,6 +96,7 @@ public class ProductController extends HttpServlet {
 
             req.getRequestDispatcher("/views/user/product/product-detail.jsp").forward(req, resp);
         }
+
 
         else if (url.contains("search")) {
             String search = req.getParameter("search");

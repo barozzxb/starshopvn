@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/my-styles.css">
 
@@ -55,27 +56,31 @@
 
 		<!-- Recently Viewed Products -->
 		<div class="recently-viewed-products mt-5">
-			<h3>Recently Viewed Products</h3>
+			<h3 class="text-center mb-4">Recently Viewed Products</h3>
+
 			<c:if test="${not empty viewedProducts}">
 				<div class="row">
 					<c:forEach var="viewedProduct" items="${viewedProducts}">
-						<div class="col-4 col-md-2 text-center">
+						<div class="col-6 col-md-3 col-lg-2 text-center mb-4">
 							<a
-								href="${pageContext.request.contextPath}/user/product/detail?pid=${viewedProduct.pid}">
-								<c:url value="/image?fname=${viewedProduct.ppicture}"
-									var="imgUrl"></c:url> <img src="${imgUrl}"
-								alt="${viewedProduct.pname}"
-								class="img-fluid mb-2 viewed-product-img">
-								<p>${viewedProduct.pname}</p> <strong><fmt:formatNumber
+								href="${pageContext.request.contextPath}/user/product/detail?pid=${viewedProduct.pid}"
+								class="viewed-product-link"> <c:url
+									value="/image?fname=${viewedProduct.ppicture}" var="imgUrl"></c:url>
+								<img src="${imgUrl}" alt="${viewedProduct.pname}"
+								class="img-fluid mb-3 viewed-product-img">
+								<p class="product-name">${viewedProduct.pname}</p> <strong
+								class="product-price"> <fmt:formatNumber
 										value="${viewedProduct.pprice}" type="currency"
-										currencySymbol="" /> vnđ</strong>
+										currencySymbol="" /> vnđ
+							</strong>
 							</a>
 						</div>
 					</c:forEach>
 				</div>
 			</c:if>
+
 			<c:if test="${empty viewedProducts}">
-				<p>No products have been viewed yet.</p>
+				<p class="text-center">No products have been viewed yet.</p>
 			</c:if>
 		</div>
 
@@ -97,9 +102,27 @@
 							<div class="review-content">
 								<p>${review.comment}</p>
 								<c:if test="${not empty review.mediaUrl}">
-									<img src="${pageContext.request.contextPath}${review.mediaUrl}"
-										alt="Media" class="img-fluid review-media">
+									<c:choose>
+										<c:when
+											test="${fn:endsWith(review.mediaUrl, '.mp4') || fn:endsWith(review.mediaUrl, '.avi')}">
+											<video controls class="img-fluid"
+												style="max-width: 100%; height: auto;">
+												<source
+													src="${pageContext.request.contextPath}${review.mediaUrl}"
+													type="video/mp4">
+												Video không hỗ trợ.
+											</video>
+										</c:when>
+										<c:otherwise>
+											<img
+												src="${pageContext.request.contextPath}${review.mediaUrl}"
+												alt="Review Image" class="img-fluid">
+
+
+										</c:otherwise>
+									</c:choose>
 								</c:if>
+
 							</div> <small>${review.createdAt}</small>
 						</li>
 					</c:forEach>

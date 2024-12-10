@@ -36,7 +36,10 @@ public class Review {
     private String mediaUrl; 
     
     @Column(name = "createdAt", columnDefinition = "timestamp", nullable = false)
-    private Timestamp createdAt; 
+    private Timestamp createdAt;
+    
+    @Column(name = "isVideo", columnDefinition = "boolean default false")
+    private boolean isVideo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pid", nullable = false)

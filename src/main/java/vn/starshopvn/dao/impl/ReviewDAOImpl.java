@@ -8,7 +8,6 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import vn.starshopvn.config.JPAConfig;
 import vn.starshopvn.dao.ReviewDAO;
-import vn.starshopvn.entity.Favorites;
 import vn.starshopvn.entity.Review;
 
 public class ReviewDAOImpl implements ReviewDAO {

@@ -1,8 +1,7 @@
 package vn.starshopvn.controller;
 
 import java.io.File;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+
 import java.nio.file.Paths;
 
 import jakarta.servlet.http.HttpServletRequest;

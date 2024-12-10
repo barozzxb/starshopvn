@@ -1,8 +1,9 @@
 package vn.starshopvn.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
+
+import java.time.LocalDateTime;
+
 
 
 import jakarta.servlet.ServletException;
@@ -15,6 +16,8 @@ import vn.starshopvn.service.AccountService;
 import vn.starshopvn.service.RoleService;
 import vn.starshopvn.service.impl.AccountServiceImpl;
 import vn.starshopvn.service.impl.RoleServiceImpl;
+import vn.starshopvn.ultis.PasswordUtils;
+
 
 @WebServlet(urlPatterns = { "/signup" })
 public class SignupController extends HttpServlet {
@@ -29,49 +32,76 @@ public class SignupController extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// encoding
-		resp.setCharacterEncoding("UTF-8");
-		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // encoding
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
 
-		// get attribute from view
-		String userid = req.getParameter("userid");
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		String confirmpass = req.getParameter("c-password");
-		String alert = "";
+        // Get form data
+        String userid = req.getParameter("userid");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String confirmPassword = req.getParameter("c-password");
+        String name = req.getParameter("name");
+        String dob = req.getParameter("dob");
+        String gender = req.getParameter("gender");
+        String phonenum = req.getParameter("phonenum");
+        String address = req.getParameter("address");
+        
+        Account acc = aServ.findById(userid);
+        
+        String alert = "";
 
-		// process
-		if (userid.isEmpty() || password.isEmpty() || password.isEmpty() || confirmpass.isEmpty()) {
-			alert = "Please fill out the given fields";
-			req.setAttribute("alert", alert);
-			req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
-		} else
+        // Validate input
+        if (userid.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || name.isEmpty() || dob.isEmpty() || phonenum.isEmpty() || address.isEmpty()) {
+            alert = "Please fill out all the required fields";
+            req.setAttribute("alert", alert);
+            req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
+            return;
+        } else
+        if (!confirmPassword.equals(password)) {
+            alert = "Confirm password does not match the password. Try again";
+            req.setAttribute("alert", alert);
+            req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
+            return;
+        } else
+        if (aServ.findByEmail(email) != null) {
+        	alert = "This email already exists. Please login or use a new email!";
+            req.setAttribute("alert", alert);
+            req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
+            return;
+        } else
+        if (acc != null && acc.isDeactivated() == false) {
+            alert = "This account already exists. Try another username or log in";
+            req.setAttribute("alert", alert);
+            req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
+            return;
+        } else {
+        	// Save the account in the database
+        	// Create temporary Account object
+        	String hashedPassword = PasswordUtils.hashPassword(password);
+        	boolean signupDone = false;
+   		 	Account tempAccount = new Account(userid, address, LocalDateTime.now(), dob, email, gender, true, name, hashedPassword, phonenum, rServ.findById(2));
+        	if (acc != null && acc.isDeactivated() == true)
+        	{
+                 signupDone = aServ.update(tempAccount);
+        	} else {
+	            signupDone = aServ.insert(tempAccount);
+        	}
+            if (signupDone) {
+                // Store the account object temporarily in session
+                req.getSession().setAttribute("tempAccount", tempAccount);
+                // Redirect to OTP verification page
+                req.getSession().setAttribute("email", email);
+                req.getRequestDispatcher("/views/verify-otp.jsp").forward(req, resp);
+            } else {
+                alert = "Something went wrong. Try again";
+                req.setAttribute("alert", alert);
+                req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
+            }
+        }
 
-		if (!confirmpass.equals(password)) {
-			alert = "Confirm password does not match the password. Try again";
-			req.setAttribute("alert", alert);
-			req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
-		} else
-
-		if (aServ.findById(userid) != null) {
-			alert = "This account is already exist. Try another username or Login";
-			req.setAttribute("alert", alert);
-			req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
-		} else {
-			Timestamp createddate = new Timestamp(new Date().getTime());
-			Account acc = new Account(userid, password, email, false, rServ.findById(2), createddate);
-			boolean signup_done = aServ.insert(acc);
-			if (signup_done) {
-				alert = "Sign up successfully. Please log in into your account";
-				req.setAttribute("alert", alert);
-				req.getRequestDispatcher("/login").forward(req, resp);
-			} else {
-				alert = "Something went wrong. Try again";
-				req.setAttribute("alert", alert);
-				req.getRequestDispatcher("/views/signup.jsp").forward(req, resp);
-			}
-		}
-	}
+      
+    }
 }

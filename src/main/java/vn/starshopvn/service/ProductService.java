@@ -22,4 +22,5 @@ public interface ProductService {
 
 	List<Product> findAll();
 
+	List<Product> findByGenre(String gid);
 }

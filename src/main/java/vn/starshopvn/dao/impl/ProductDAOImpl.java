@@ -64,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<Product> findByName(String pname) {
 		EntityManager enma = JPAConfig.getEntityManager();
-		String jpql = "SELECT p FROM Product p WHERE p.productName like : pname";
+		String jpql = "SELECT p FROM Product p WHERE p.pname like : pname";
 		TypedQuery<Product> query= enma.createQuery(jpql, Product.class);
 		query.setParameter("pname", "%" + pname +"%");
 		return query.getResultList();

@@ -25,7 +25,7 @@ import lombok.ToString;
 @Entity
 @Table(name="Products")
 @NamedQuery(name="product.findAll", query="select p from Product p")
-@ToString(exclude = {"genre", "orderDetails"})  // Loại trừ genre và orderDetails khỏi phương thức toString()
+@ToString(exclude = {"genre", "orderDetails", "reviews"})  // Loại trừ genre, orderDetails, và reviews khỏi phương thức toString()
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -58,11 +58,17 @@ public class Product implements Serializable {
     @JoinColumn(name = "gid", nullable = false)
     private Genre genre;
 
+    @Column(name = "mediaType")  // Add this column if mediaType is a required field
+    private String mediaType; 
+    
     @OneToMany(mappedBy = "odid.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
     
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<Favorites> favorite;
+    
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private List<Review> reviews; // Thêm thuộc tính reviews
     
     @Override
     public String toString() {
@@ -75,7 +81,8 @@ public class Product implements Serializable {
                 ", createdat=" + createdat +
                 ", genreId=" + (genre != null ? genre.getGid() : "null") +
                 ", favoritesCount=" + (favorite != null ? favorite.size() : 0) +
+                ", reviewsCount=" + (reviews != null ? reviews.size() : 0) + // Hiển thị số lượng reviews
                 '}';
     }
-
 }
+

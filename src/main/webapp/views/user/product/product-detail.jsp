@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/my-styles.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/my-styles.css">
 
 <div class="product-detail-section">
     <div class="container">
@@ -17,84 +19,82 @@
 
             <!-- Right side - Product Details -->
             <div class="col-md-12 col-lg-6">
-                <!-- Product Name -->
                 <h2 class="product-title">${product.pname}</h2>
 
-                <!-- Product Description -->
                 <div class="product-description mt-4">
                     <h3>Description</h3>
                     <p>${product.pinfo}</p>
                 </div>
 
-                <!-- Product Price -->
                 <div class="product-price mt-4">
                     <strong><fmt:formatNumber value="${product.pprice}" type="currency" currencySymbol="" /> vnđ</strong>
                 </div>
 
-                <!-- Product Rating -->
                 <div class="product-rating mt-3">
                     <strong>Rating:</strong> <span>${product.prating} / 5</span>
                 </div>
 
-                <!-- Add to Cart -->
-                <div class="add-to-cart mt-4">
-                    <form action="cart.html" method="post">
-                        <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 80px;">
-                        <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
-                    </form>
-                </div>
+                <form action="cart.html" method="post" class="mt-3">
+                    <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 80px;">
+                    <button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+                </form>
 
-                <!-- Add to Favorite -->
-                <div class="add-to-favorite mt-4">
-                    <form action="${pageContext.request.contextPath}/user/product/like" method="post">
-                        <input type="hidden" name="pid" value="${product.pid}">
-                        <button type="submit" class="btn btn-danger mt-2">
-                            <i class="fa fa-heart"></i> Add to Favorite
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Related Products Sidebar -->
-                <div class="sidebar mt-5">
-                    <h4>Related Products</h4>
-                    <ul class="related-products">
-                        <c:forEach items="${relatedProducts}" var="relatedProd">
-                            <li>
-                                <a href="product-detail?pid=${relatedProd.pid}">
-                                    <c:url value="/image?fname=${relatedProd.ppicture}" var="relatedImgUrl"></c:url>
-                                    <img src="${relatedImgUrl}" class="img-fluid" alt="${relatedProd.pname}">
-                                    <p>${relatedProd.pname}</p>
-                                    <strong><fmt:formatNumber value="${relatedProd.pprice}" type="currency" currencySymbol="" /> vnđ</strong>
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </div>
-
-                <!-- Recently Viewed Products -->
-                <h3>Recently Viewed Products</h3>
-                <div>
-                    <c:if test="${not empty viewedProducts}">
-                        <ul class="recently-viewed-products">
-                            <c:forEach var="viewedProduct" items="${viewedProducts}">
-                                <li class="product-item">
-                                    <a href="${pageContext.request.contextPath}/user/product/detail?pid=${viewedProduct.pid}">
-                                        <c:url value="/image?fname=${viewedProduct.ppicture}" var="imgUrl"></c:url>
-                                        <img src="${imgUrl}" class="img-fluid product-thumbnail" alt="${viewedProduct.pname}">
-                                        <h3 class="product-title">${viewedProduct.pname}</h3>
-                                        <strong class="product-price">
-                                            <fmt:formatNumber value="${viewedProduct.pprice}" type="currency" currencySymbol="" /> vnđ
-                                        </strong>
-                                    </a>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
-                    <c:if test="${empty viewedProducts}">
-                        <p>No products have been viewed yet.</p>
-                    </c:if>
-                </div>
+                <form action="${pageContext.request.contextPath}/user/product/like" method="post" class="mt-3">
+                    <input type="hidden" name="pid" value="${product.pid}">
+                    <button type="submit" class="btn btn-danger mt-2">
+                        <i class="fa fa-heart"></i> Add to Favorite
+                    </button>
+                </form>
             </div>
+        </div>
+
+        <!-- Recently Viewed Products -->
+        <div class="recently-viewed-products mt-5">
+            <h3>Recently Viewed Products</h3>
+            <c:if test="${not empty viewedProducts}">
+                <div class="row">
+                    <c:forEach var="viewedProduct" items="${viewedProducts}">
+                        <div class="col-4 col-md-2 text-center">
+                            <a href="${pageContext.request.contextPath}/user/product/detail?pid=${viewedProduct.pid}">
+                                <c:url value="/image?fname=${viewedProduct.ppicture}" var="imgUrl"></c:url>
+                                <img src="${imgUrl}" alt="${viewedProduct.pname}" class="img-fluid mb-2 viewed-product-img">
+                                <p>${viewedProduct.pname}</p>
+                                <strong><fmt:formatNumber value="${viewedProduct.pprice}" type="currency" currencySymbol="" /> vnđ</strong>
+                            </a>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
+            <c:if test="${empty viewedProducts}">
+                <p>No products have been viewed yet.</p>
+            </c:if>
+        </div>
+
+        <!-- Product Reviews -->
+        <div class="product-reviews mt-5">
+            <h3>Reviews</h3>
+            <c:if test="${not empty reviews}">
+                <ul class="reviews-list">
+                    <c:forEach var="review" items="${reviews}">
+                        <li class="review">
+                            <div class="review-header">
+                                <strong>${review.account.name}</strong> - ${review.rating} sao
+                            </div>
+                            <div class="review-content">
+                                <p>${review.comment}</p>
+                                <c:if test="${not empty review.mediaUrl}">
+                                    <img src="${pageContext.request.contextPath}${review.mediaUrl}" alt="Media" class="img-fluid review-media">
+                                </c:if>
+                            </div>
+                            <small>${review.createdAt}</small>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </c:if>
+            <c:if test="${empty reviews}">
+                <p>No reviews yet.</p>
+            </c:if>
         </div>
     </div>
 </div>
+

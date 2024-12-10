@@ -13,22 +13,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.starshopvn.entity.Product;
+import vn.starshopvn.entity.Review;
 import vn.starshopvn.service.ProductService;
+import vn.starshopvn.service.ReviewService;
 import vn.starshopvn.service.impl.ProductServiceImpl;
+import vn.starshopvn.service.impl.ReviewServiceImpl;
 import vn.starshopvn.ultis.Constant;
 
 @WebServlet(urlPatterns = { "/user/products", "/user/product/detail", "/user/product/search" })
 public class ProductController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    ProductService proSer = new ProductServiceImpl();
+    private final ProductService proSer = new ProductServiceImpl();
+    private final ReviewService reviewSer = new ReviewServiceImpl(); // Thêm ReviewService
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = req.getRequestURI();
         HttpSession session = req.getSession();
 
-        // Hiển thị danh sách tất cả sản phẩm
         if (url.contains("products")) {
             String upPath = Constant.upDir;
             req.setAttribute("upPath", upPath);
@@ -48,12 +51,16 @@ public class ProductController extends HttpServlet {
             String upPath = Constant.upDir;
             req.setAttribute("upPath", upPath);
 
-            Product p = proSer.findById(pid);
-            if (p == null) {
+            Product product = proSer.findById(pid);
+            if (product == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
                 return;
             }
-            req.setAttribute("product", p);
+            req.setAttribute("product", product);
+
+            // **Logic lấy danh sách đánh giá sản phẩm**
+            List<Review> reviews = reviewSer.findByProductId(pid);
+            req.setAttribute("reviews", reviews);
 
             // Lưu sản phẩm đã xem vào session và chỉ giữ 3 sản phẩm gần nhất
             List<Product> viewedProducts = (List<Product>) session.getAttribute("viewedProducts");
@@ -67,11 +74,11 @@ public class ProductController extends HttpServlet {
             }
 
             if (!viewedProducts.stream().anyMatch(v -> v.getPid().equals(pid))) {
-                viewedProducts.add(0, p); 
+                viewedProducts.add(0, product);
             }
 
             if (viewedProducts.size() > 3) {
-                viewedProducts = viewedProducts.subList(0, 3); 
+                viewedProducts = viewedProducts.subList(0, 3);
             }
 
             session.setAttribute("viewedProducts", viewedProducts);
@@ -79,7 +86,6 @@ public class ProductController extends HttpServlet {
             req.getRequestDispatcher("/views/user/product/product-detail.jsp").forward(req, resp);
         }
 
-        // Tìm kiếm sản phẩm
         else if (url.contains("search")) {
             String search = req.getParameter("search");
             if (search != null && !search.strip().isEmpty()) {
@@ -92,6 +98,5 @@ public class ProductController extends HttpServlet {
             req.setAttribute("products", list);
             req.getRequestDispatcher("/views/user/product/product-list.jsp").forward(req, resp);
         }
-        
     }
 }

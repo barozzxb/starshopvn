@@ -12,7 +12,11 @@ import vn.starshopvn.entity.Account;
 import vn.starshopvn.service.AccountService;
 import vn.starshopvn.service.impl.AccountServiceImpl;
 
+<<<<<<< Updated upstream
 @WebServlet(urlPatterns = {"/user/profile", "/user/my"})
+=======
+@WebServlet(urlPatterns = {"/user/profile","/user/my"})
+>>>>>>> Stashed changes
 public class UserProfile extends HttpServlet {
     private static final long serialVersionUID = 1L;
     AccountService aServ = new AccountServiceImpl();

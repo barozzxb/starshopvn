@@ -74,4 +74,10 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> top3new() {
 		return pDAO.top3new();
 	}
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 }

@@ -1,14 +1,19 @@
 package vn.starshopvn.dao.impl;
 
 import java.util.List;
+<<<<<<< Updated upstream
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+=======
+import jakarta.persistence.EntityManager;
+>>>>>>> Stashed changes
 import jakarta.persistence.TypedQuery;
 import vn.starshopvn.config.JPAConfig;
 import vn.starshopvn.dao.ProductDAO;
 import vn.starshopvn.entity.Product;
 
+<<<<<<< Updated upstream
 public class ProductDAOImpl implements ProductDAO{
 
 	@Override
@@ -109,4 +114,106 @@ public class ProductDAOImpl implements ProductDAO{
 		query.setMaxResults(6);
 		return query.getResultList();
 	}
+=======
+public class ProductDAOImpl implements ProductDAO {
+
+
+    /**
+     * Lấy 3 sản phẩm mới nhất, sắp xếp theo ngày tạo giảm dần
+     */
+    @Override
+    public List<Product> top3new() {
+        EntityManager em = JPAConfig.getEntityManager();
+        // JPQL để lấy 3 sản phẩm mới nhất theo ngày tạo
+        String jpql = "SELECT p FROM Product p ORDER BY p.createdat DESC";
+        TypedQuery<Product> query = em.createQuery(jpql, Product.class);
+        
+        // Giới hạn lấy 3 sản phẩm
+        query.setMaxResults(3);
+        
+        return query.getResultList();
+    }
+
+    @Override
+    public int countProducts() {
+        EntityManager em = JPAConfig.getEntityManager();
+        String jpql = "SELECT COUNT(p) FROM Product p";
+        return em.createQuery(jpql, Long.class).getSingleResult().intValue();
+    }
+
+    @Override
+    public void delete(String pid) throws Exception {
+        EntityManager em = JPAConfig.getEntityManager();
+        var trans = em.getTransaction();
+        try {
+            trans.begin();
+            Product product = em.find(Product.class, pid);
+            if (product != null) {
+                em.remove(product);
+            } else {
+                throw new Exception("Không tìm thấy sản phẩm để xóa.");
+            }
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Product> findByName(String pname) {
+        EntityManager em = JPAConfig.getEntityManager();
+        String jpql = "SELECT p FROM Product p WHERE p.productName LIKE :pname";
+        return em.createQuery(jpql, Product.class)
+                .setParameter("pname", "%" + pname + "%")
+                .getResultList();
+    }
+
+    @Override
+    public void update(Product product) {
+        EntityManager em = JPAConfig.getEntityManager();
+        var trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(product);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void insert(Product product) {
+        EntityManager em = JPAConfig.getEntityManager();
+        var trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(product);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Product findById(String productId) {
+        EntityManager em = JPAConfig.getEntityManager();
+        return em.find(Product.class, productId);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        EntityManager em = JPAConfig.getEntityManager();
+        String jpql = "SELECT p FROM Product p";
+        return em.createQuery(jpql, Product.class).getResultList();
+    }
+>>>>>>> Stashed changes
 }

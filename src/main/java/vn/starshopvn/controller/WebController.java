@@ -30,6 +30,11 @@ public class WebController extends HttpServlet{
 		
 		List<Product> newprods = prodServ.top3new();
 		req.setAttribute("topprod", newprods);
+<<<<<<< Updated upstream
+=======
+		
+       
+>>>>>>> Stashed changes
 		req.getRequestDispatcher("/views/guest/home.jsp").forward(req, resp);
 	}
 }

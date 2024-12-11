@@ -22,6 +22,10 @@ public class UserController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+<<<<<<< Updated upstream
+=======
+    // Khai báo dịch vụ Genre và Product
+>>>>>>> Stashed changes
     GenreService genreServ = new GenreServiceImpl();
     ProductService prodServ = new ProductServiceImpl();
 
@@ -39,12 +43,26 @@ public class UserController extends HttpServlet {
         Account u = (Account) session.getAttribute("account");
         req.setAttribute("account", u);
 
+<<<<<<< Updated upstream
         List<Genre> genres = genreServ.findAll();
         req.setAttribute("genres", genres);
 
         List<Product> newprods = prodServ.top3new();
         req.setAttribute("topprod", newprods);
 
+=======
+        // Lấy danh sách thể loại (genre)
+        List<Genre> genres = genreServ.findAll();
+        req.setAttribute("genres", genres);
+
+        // Lấy 3 sản phẩm mới nhất
+        List<Product> newprods = prodServ.top3new();
+        req.setAttribute("topprod", newprods);
+
+
+
+        // Chuyển hướng đến trang home.jsp để hiển thị
+>>>>>>> Stashed changes
         req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
     }
 }

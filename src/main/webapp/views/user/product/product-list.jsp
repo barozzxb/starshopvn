@@ -3,7 +3,6 @@
 <%@ include file="/common/taglib.jsp"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/my-styles.css">
 
@@ -53,51 +52,29 @@
 	</div>
 </div>
 
+<!-- In your JSP (product-list.jsp) -->
 <div class="post-section py-4">
-	<div class="container">
-		<div class="row">
-			<c:if test="${not empty posts}">
-				<c:forEach items="${posts}" var="post">
-					<div class="col-12 col-md-6 col-lg-4 mb-4">
-						<div class="post-item card h-100">
-							<img src="${post.image}" class="card-img-top" alt="${post.title}">
-							<div class="card-body">
-								<h5 class="card-title">${post.title}</h5>
-								<p class="card-text text-muted">${post.author}•
-									${post.createdat}</p>
-								<c:choose>
-									<c:when
-										test="${post.content != null && post.content is String}">
-										<p class="card-text">
-											<c:choose>
-												<c:when test="${post.content != null}">
-													<p class="card-text">${post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content}</p>
-												</c:when>
-												<c:otherwise>
-													<p class="card-text">No content available</p>
-												</c:otherwise>
-											</c:choose>
+    <div class="container">
+        <div class="row">
+            <c:if test="${not empty posts}">
+                <c:forEach items="${posts}" var="post">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="post-item card h-100">
+                           <img src="${pageContext.request.contextPath}/${post.image}" alt="${post.title}" class="card-img-top">
 
-										</p>
-									</c:when>
-									<c:otherwise>
-										<p class="card-text">${post.content}</p>
-									</c:otherwise>
-								</c:choose>
-
-								<a
-									href="${pageContext.request.contextPath}/user/post/detail?pid=${post.id}"
-									class="btn btn-primary btn-sm">Read More</a>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-
-
-			</c:if>
-			<c:if test="${empty posts}">
-				<p>No posts available at the moment.</p>
-			</c:if>
-		</div>
-	</div>
+                            <div class="card-body">
+                                <h5 class="card-title">${post.title}</h5>
+                                <p class="card-text text-muted">${post.author}• ${post.createdat}</p>
+                                <p class="card-text">${post.content}</p>
+                                <a href="${pageContext.request.contextPath}/user/post/detail?poid=${post.poid}" class="btn btn-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:if>
+            <c:if test="${empty posts}">
+                <p>No posts available at the moment.</p>
+            </c:if>
+        </div>
+    </div>
 </div>

@@ -20,6 +20,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link href="${URL}assets/css/tiny-slider.css" rel="stylesheet">
 <link href="${URL}assets/css/style.css" rel="stylesheet">
+<link href="${URL}assets/css/my-styles.css" rel="stylesheet">
 <title>Starshop - Fresh Flower For You</title>
 </head>
 <body>
@@ -33,6 +34,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>">
 <script src="${URL}assets/js/tiny-slider.js"></script>
 <script src="${URL}assets/js/custom.js"></script>
+<script src="${URL}assets/js/mychart.js"></script>
+<script src="${URL}assets/js/myscripts.js"></script>
 
 </body>
 </html>

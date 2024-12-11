@@ -3,6 +3,7 @@ package vn.starshopvn.service;
 import java.util.List;
 
 import vn.starshopvn.entity.Product;
+import vn.starshopvn.model.TopSellingProduct;
 
 public interface ProductService {
 
@@ -21,5 +22,19 @@ public interface ProductService {
 	Product findById(String pid);
 
 	List<Product> findAll();
+	
+	List<Product> findAll(int page, int pagesize);
+
+	List<Product> searchAndFilter(List<String> genreIds, Integer maxPrice);
+
+	List<Product> filterByPrice(int maxPrice);
+
+	List<Product> filterByGenre(List<String> genreIds);
+
+	List<Product> searchProducts(String keyword);
+
+	List<TopSellingProduct> topSellingProducts();
+
+	List<Product> findByGenre(String gid);
 
 }

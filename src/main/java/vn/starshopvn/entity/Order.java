@@ -1,12 +1,12 @@
 package vn.starshopvn.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,22 +24,36 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Orders")
 @NamedQuery(name = "order.findAll", query = "select o from Order o")
-public class Order {
+public class Order implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "oid", columnDefinition = "nvarchar(255)")
 	private String oid;
 	
-	@Column(name = "date", columnDefinition = "timestamp")
-	private Timestamp date;
+	@Column(name = "odate", columnDefinition = "timestamp")
+	private Timestamp odate;
 	
-	@Column(name = "status", columnDefinition = "nvarchar(255)")
-	private String status;
+	@Column(name = "ostatus", columnDefinition = "nvarchar(255)")
+	private String ostatus;
 		
+	@Column(name = "payment", columnDefinition = "nvarchar(255)")
+	private String payment;
+	
+	@Column(name = "note", columnDefinition = "nvarchar(5000)")
+	private String note;
+	
+	@Column(name = "cost", columnDefinition = "int")
+	private int cost;
+	
+	@Column(name = "deliveryinfo", columnDefinition = "nvarchar(255)")
+	private String deliveryinfo;
+	
 	@ManyToOne
     @JoinColumn(name = "userid", nullable = false)
     private Account account;
 	
-	@OneToMany(mappedBy = "odid.order", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderDetail> orderDetails;
 }

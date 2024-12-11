@@ -72,4 +72,9 @@ public class GenreServiceImpl implements GenreService{
 		return genreDAO.countGenres();
 	}
 
+	@Override
+	public List<Genre> findAll(int page, int pagesize) {
+		return genreDAO.findAll(page, pagesize);
+	}
+
 }

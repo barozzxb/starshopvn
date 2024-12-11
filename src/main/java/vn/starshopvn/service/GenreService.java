@@ -22,4 +22,5 @@ public interface GenreService {
 
 	List<Genre> findAll();
 
+	public List<Genre> findAll(int page, int pagesize);
 }

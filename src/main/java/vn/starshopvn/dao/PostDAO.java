@@ -8,5 +8,11 @@ public interface PostDAO {
 
 	List<Post> findAll();
 	
+	void censorPost(String poid);
+	void uncensorPost(String poid);
+
+	List<Post> findAllUncensoredPost();
+
+	List<Post> findAllCensoredPost();
 	
 }

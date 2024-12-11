@@ -23,4 +23,6 @@ public interface AccountDAO {
 	void setActive(String userid);
 
 	void setDeactive(String userid);
+
+	Account findByEmail(String email);
 }

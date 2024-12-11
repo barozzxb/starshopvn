@@ -2,3 +2,131 @@
 .hidden {
     display: none !important;
 }
+
+
+/* Màu chữ xám đậm - nhẹ nhàng, dễ đọc */
+.text-dark-gray {
+    color: #343a40; /* Xám đậm */
+}
+
+/* Màu chữ xanh dương đậm */
+.text-blue {
+    color: #0056b3; /* Xanh dương đậm */
+}
+
+/* Màu chữ xanh lá cây */
+.text-green {
+    color: #198754; /* Xanh lá dễ chịu */
+}
+
+/* Màu chữ đỏ nổi bật */
+.text-red {
+    color: #dc3545; /* Màu đỏ tươi */
+}
+
+/* Màu chữ cam nhạt */
+.text-orange {
+    color: #fd7e14; /* Màu cam nhạt */
+}
+
+/* Màu chữ đen nhạt */
+.text-black-light {
+    color: #212529; /* Màu đen nhẹ */
+}
+
+/* Màu chữ tím đậm */
+.text-purple {
+    color: #6f42c1; /* Màu tím đậm */
+}
+
+textarea {
+  resize: none;
+}
+
+/* Card màu xanh dương nhẹ */
+.cdbg-light-blue {
+    background-color: #E3F2FD;
+    border: 1px solid #90CAF9;
+}
+
+/* Card màu xanh lá cây nhạt */
+.cdbg-light-green {
+    background-color: #C8E6C9;
+    border: 1px solid #A5D6A7;
+}
+
+/* Card màu vàng nhạt */
+.cdbg-light-yellow {
+    background-color: #FFF9C4;
+    border: 1px solid #FFF59D;
+}
+
+/* Card màu hồng nhạt */
+.cdbg-light-pink {
+    background-color: #F8BBD0;
+    border: 1px solid #F48FB1;
+}
+
+/* Card màu tím nhạt */
+.cdbg-light-purple {
+    background-color: #E1BEE7;
+    border: 1px solid #CE93D8;
+}
+
+/* Card màu cam nhạt */
+.cdbg-light-orange {
+    background-color: #FFE0B2;
+    border: 1px solid #FFCC80;
+}
+
+/* Kiểu 1: Màu Xám đậm với viền sáng */
+.bg-dark-light-border {
+    background-color: #343a40; /* Màu xám đậm */
+    border: 2px solid #495057;  /* Viền sáng hơn một chút */
+    border-radius: 8px;         /* Bo góc nhẹ */
+    padding: 20px;              /* Khoảng cách bên trong */
+    color: #f8f9fa;             /* Màu chữ sáng */
+}
+
+/* Kiểu 2: Màu Xanh navy đậm với viền bạc */
+.bg-navy-light-border {
+    background-color: #2c3e50; /* Màu xanh navy đậm */
+    border: 2px solid #95a5a6; /* Viền bạc sáng */
+    border-radius: 8px;
+    padding: 20px;
+    color: #ecf0f1;            /* Màu chữ sáng */
+}
+
+/* Kiểu 3: Màu Đen carbon với viền xám nhạt */
+.bg-black-light-border {
+    background-color: #212121; /* Màu đen carbon */
+    border: 2px solid #bdc3c7; /* Viền xám nhạt */
+    border-radius: 8px;
+    padding: 20px;
+    color: #ecf0f1;            /* Màu chữ sáng */
+}
+
+/* Kiểu 4: Màu Xanh đậm với viền cam nhạt */
+.bg-blue-dark-border {
+    background-color: #1e3d58; /* Màu xanh đậm */
+    border: 2px solid #f39c12;  /* Viền cam nhạt */
+    border-radius: 8px;
+    padding: 20px;
+    color: #f8f9fa;             /* Màu chữ sáng */
+}
+
+/* Kiểu 5: Màu Nâu sẫm với viền vàng sáng */
+.bg-brown-light-border {
+    background-color: #6c4f2e; /* Màu nâu sẫm */
+    border: 2px solid #f1c40f;  /* Viền vàng sáng */
+    border-radius: 8px;
+    padding: 20px;
+    color: #f8f9fa;             /* Màu chữ sáng */
+}
+
+/* Kiểu 6: Màu Xanh lá đậm với viền xanh nhạt */
+.bg-green-dark-border {
+    background-color: #2d6a4f; /* Màu xanh lá đậm */
+    border: 2px solid #a8dadc;  /* Viền xanh nhạt */
+    border-radius: 8px;
+}

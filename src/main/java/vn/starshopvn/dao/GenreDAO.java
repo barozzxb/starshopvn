@@ -22,4 +22,6 @@ public interface GenreDAO {
 
 	void insert(Genre genre);
 
+	List<Genre> findAll(int page, int pagesize);
+
 }

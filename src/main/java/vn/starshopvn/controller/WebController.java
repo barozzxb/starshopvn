@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.starshopvn.entity.Genre;
 import vn.starshopvn.entity.Product;
+import vn.starshopvn.model.TopSellingProduct;
 import vn.starshopvn.service.GenreService;
 import vn.starshopvn.service.ProductService;
 import vn.starshopvn.service.impl.GenreServiceImpl;
@@ -25,11 +26,16 @@ public class WebController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Genre> genres = genreServ.findAll();
-		req.setAttribute("genres", genres);
+
+        List<Genre> genres = genreServ.findAll();
+        req.setAttribute("genres", genres);
 		
 		List<Product> newprods = prodServ.top3new();
 		req.setAttribute("topprod", newprods);
+		
+		List<TopSellingProduct> topSelling = prodServ.topSellingProducts();
+		req.setAttribute("topSelling", topSelling);
+		
 		req.getRequestDispatcher("/views/guest/home.jsp").forward(req, resp);
 	}
 }

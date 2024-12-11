@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import vn.starshopvn.entity.Account;
 
-@WebFilter(urlPatterns = {"/admin*"})
+@WebFilter(urlPatterns = {"/admin/*"})
 public class AdminFilter implements Filter{
 
 	@Override
@@ -25,8 +25,9 @@ public class AdminFilter implements Filter{
 		HttpSession session = req.getSession();
 		Object attr = session.getAttribute("account");
 		Account acc = (Account) attr;
-		
-		if (acc.getRole().getRoleid() == 1) {
+		if (acc == null) {
+			resp.sendRedirect(req.getContextPath() + "/login");
+		}else if (acc.getRole().getRoleid() == 1) {
 			chain.doFilter(request, response);
 			return;
 		}else {

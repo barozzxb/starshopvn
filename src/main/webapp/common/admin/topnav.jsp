@@ -30,6 +30,9 @@
 					<a href="${pageContext.request.contextPath}/admin/products" class="nav-link ${requestScope.active == 'products' ? 'active fw-bold text-primary' : ''}">Products</a>
 				</li>
 				<li class="nav-item">
+					<a href="${pageContext.request.contextPath}/admin/orders" class="nav-link ${requestScope.active == 'orders' ? 'active fw-bold text-primary' : ''}">Orders</a>
+				</li>
+				<li class="nav-item">
 					<a href="${pageContext.request.contextPath}/admin/posts" class="nav-link ${requestScope.active == 'posts' ? 'active fw-bold text-primary' : ''}">Posts</a>
 				</li>
 				<li class="nav-item">

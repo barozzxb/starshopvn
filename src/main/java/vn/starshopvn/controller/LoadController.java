@@ -24,7 +24,7 @@ public class LoadController extends HttpServlet {
 		if(u.getRole().getRoleid() == Integer.parseInt("1")) {
 			resp.sendRedirect(req.getContextPath()+"/admin");
 		}else if(u.getRole().getRoleid() == Integer.parseInt("2")){
-			resp.sendRedirect(req.getContextPath()+"/user");
+			resp.sendRedirect(req.getContextPath()+"/user/home");
 		}else {
 			resp.sendRedirect(req.getContextPath()+"/home");
 			}

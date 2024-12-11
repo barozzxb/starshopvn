@@ -12,12 +12,13 @@ import jakarta.servlet.http.HttpSession;
 import vn.starshopvn.entity.Account;
 import vn.starshopvn.entity.Genre;
 import vn.starshopvn.entity.Product;
+import vn.starshopvn.model.TopSellingProduct;
 import vn.starshopvn.service.GenreService;
 import vn.starshopvn.service.ProductService;
 import vn.starshopvn.service.impl.GenreServiceImpl;
 import vn.starshopvn.service.impl.ProductServiceImpl;
 
-@WebServlet(urlPatterns = {"/user/home", "/user"})
+@WebServlet(urlPatterns = {"/user/home"})
 public class UserController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -37,6 +38,15 @@ public class UserController extends HttpServlet{
 			
 			List<Product> newprods = prodServ.top3new();
 			req.setAttribute("topprod", newprods);
+			
+			List<TopSellingProduct> topSelling = prodServ.topSellingProducts();
+			req.setAttribute("topSelling", topSelling);
+			
+			req.setAttribute("username", u.getUserid());
+			req.setAttribute("password", u.getPassword());
+			req.setAttribute("email", u.getEmail());
+			req.setAttribute("name", u.getName());
+			req.setAttribute("phone", u.getPhonenum());
 			req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
 		}
 	}

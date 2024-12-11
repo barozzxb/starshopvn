@@ -1,11 +1,17 @@
 package vn.starshopvn.controller.admin;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -71,7 +77,6 @@ public class ProductController extends HttpServlet {
 			int pquantity = Integer.parseInt(req.getParameter("pquantity"));
 			int pprice = Integer.parseInt(req.getParameter("pprice"));
 			String pinfo = req.getParameter("pinfo");
-			String pmanufacturer = req.getParameter("pmanufacturer");
 			String pgenre = req.getParameter("pgenre");
 
 			Product prod = new Product();
@@ -81,32 +86,77 @@ public class ProductController extends HttpServlet {
 			prod.setPname(pname);
 			prod.setPprice(pprice);
 			prod.setPquantity(pquantity);
-			
+			Timestamp createdat = new Timestamp(new Date().getTime());
+			prod.setCreatedat(createdat);
 			// Xu li hinh anh
+//			String iName = "";
+//			String type = gServ.findById(pgenre).getGname().toLowerCase().replace(",", "");
+//			type = type.replace(",", "");
+//			String upPath = Constant.upDir;
+//			File upDir = new File(upPath);
+//			if (!upDir.exists()) {
+//				upDir.mkdir();
+//			}
+//			try {
+//				Part p = req.getPart("ppicture");
+//				if (p.getSize() > 0) {
+//					String name = Paths.get(p.getSubmittedFileName()).getFileName().toString();
+//					// Rename
+//					int index = name.lastIndexOf(".");
+//					String ext = name.substring(index + 1);
+//					String lowername = pname.replace(" ", "").toLowerCase();
+//					iName = pid + "_" + lowername + "." + ext;
+//					// Write file to directory
+//					p.write(upPath + "/" + iName);
+//					prod.setPpicture(iName);
+//
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+
+			// Xử lý hình ảnh
 			String iName = "";
 			String type = gServ.findById(pgenre).getGname().toLowerCase().replace(",", "");
 			type = type.replace(",", "");
 			String upPath = Constant.upDir;
 			File upDir = new File(upPath);
 			if (!upDir.exists()) {
-				upDir.mkdir();
+			    upDir.mkdir();
 			}
 			try {
-				Part p = req.getPart("ppicture");
-				if (p.getSize() > 0) {
-					String name = Paths.get(p.getSubmittedFileName()).getFileName().toString();
-					// Rename
-					int index = name.lastIndexOf(".");
-					String ext = name.substring(index + 1);
-					String lowername = pname.replace(" ", "").toLowerCase();
-					iName = pid + "_" + lowername + "." + ext;
-					// Write file to directory
-					p.write(upPath + "/" + iName);
-					prod.setPpicture(iName);
+			    Part p = req.getPart("ppicture");
+			    if (p.getSize() > 0) {
+			        String name = Paths.get(p.getSubmittedFileName()).getFileName().toString();
+			        // Đổi tên file
+			        int index = name.lastIndexOf(".");
+			        String ext = name.substring(index + 1);
+			        String lowername = pname.replace(" ", "").toLowerCase();
+			        iName = pid + "_" + lowername + "." + ext;
 
-				}
+
+			        BufferedImage originalImage = ImageIO.read(p.getInputStream());
+
+			        int size = Math.min(originalImage.getWidth(), originalImage.getHeight());
+			        int x = (originalImage.getWidth() - size) / 2;
+			        int y = (originalImage.getHeight() - size) / 2;
+
+			        BufferedImage croppedImage = originalImage.getSubimage(x, y, size, size);
+
+			        int targetSize = 500;
+			        BufferedImage resizedImage = new BufferedImage(targetSize, targetSize, BufferedImage.TYPE_INT_RGB);
+			        Graphics2D g2d = resizedImage.createGraphics();
+			        g2d.drawImage(croppedImage, 0, 0, targetSize, targetSize, null);
+			        g2d.dispose();
+
+			        // Lưu ảnh vào thư mục
+			        File outputFile = new File(upPath + "/" + iName);
+			        ImageIO.write(resizedImage, ext.toLowerCase(), outputFile);
+
+			        prod.setPpicture(iName);
+			    }
 			} catch (Exception e) {
-				e.printStackTrace();
+			    e.printStackTrace();
 			}
 
 			if (pServ.insert(prod)) {

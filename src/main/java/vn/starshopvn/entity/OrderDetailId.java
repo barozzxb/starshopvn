@@ -2,20 +2,23 @@ package vn.starshopvn.entity;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 
 @Embeddable
 public class OrderDetailId implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@JoinColumn(name = "oid", nullable = false)
-	private Order order;
+	@Column(name = "oid", nullable = false, columnDefinition = "nvarchar(255)")
+	private String oid;
 
-	@ManyToOne
-	@JoinColumn(name = "pid", nullable = false)
-	private Product product;
+	@Column(name = "pid", nullable = false, columnDefinition = "nvarchar(255)")
+	private String pid;
 }

@@ -57,6 +57,6 @@ public class Product implements Serializable {
     @JoinColumn(name = "gid", nullable = false)
     private Genre genre;
 	
-	@OneToMany(mappedBy = "odid.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
 }

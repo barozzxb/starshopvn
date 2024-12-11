@@ -83,9 +83,6 @@
                         <label for="pinfo" class="mt-2">Product Information <span>*</span></label>
                         <textarea class="form-control" id="pinfo" name="pinfo" rows="5" placeholder="Enter Product Information"></textarea>
 
-                        <label for="pmanufacturer" class="mt-2">Manufacturer <span>*</span></label>
-                        <input type="text" class="form-control" id="pmanufacturer" name="pmanufacturer" placeholder="Enter Manufacturer">
-
                         <label for="pgenre" class="mt-2">Genre <span>*</span></label>
                         <select class="form-select" name="pgenre" id="pgenre">
                             <c:forEach items="${listgenre}" var="g">

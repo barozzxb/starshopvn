@@ -18,6 +18,14 @@ public class OrderDetail implements Serializable {
     @EmbeddedId
     private OrderDetailId odid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "oid", insertable = false, updatable = false)
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pid", insertable = false, updatable = false)
+    private Product product;
+    
     @Column(name = "dquantity")
     private int dquantity;
 

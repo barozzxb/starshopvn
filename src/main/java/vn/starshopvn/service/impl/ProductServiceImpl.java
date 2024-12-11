@@ -5,6 +5,7 @@ import java.util.List;
 import vn.starshopvn.dao.ProductDAO;
 import vn.starshopvn.dao.impl.ProductDAOImpl;
 import vn.starshopvn.entity.Product;
+import vn.starshopvn.model.TopSellingProduct;
 import vn.starshopvn.service.ProductService;
 
 public class ProductServiceImpl implements ProductService{
@@ -73,5 +74,40 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<Product> top3new() {
 		return pDAO.top3new();
+	}
+
+	@Override
+	public List<Product> searchAndFilter(List<String> genreIds, Integer maxPrice) {
+		return pDAO.searchAndFilter(genreIds, maxPrice);
+	}
+
+	@Override
+	public List<Product> filterByPrice(int maxPrice) {
+		return pDAO.filterByPrice(maxPrice);
+	}
+
+	@Override
+	public List<Product> filterByGenre(List<String> genreIds) {
+		return pDAO.filterByGenre(genreIds);
+	}
+
+	@Override
+	public List<Product> searchProducts(String keyword) {
+		return pDAO.searchProducts(keyword);
+	}
+	
+	@Override
+	public List<TopSellingProduct> topSellingProducts(){
+		return pDAO.topSellingProducts();
+	}
+
+	@Override
+	public List<Product> findAll(int page, int pagesize) {
+		return pDAO.findAll(page, pagesize);
+	}
+	
+	@Override
+	public List<Product> findByGenre(String gid){
+		return pDAO.findByGenre(gid);
 	}
 }

@@ -72,6 +72,15 @@ public class GenreDAOImpl implements GenreDAO{
 		TypedQuery<Genre> list = enma.createNamedQuery("genre.findAll", Genre.class);
 		return list.getResultList();
 	}
+	
+	@Override
+	public List<Genre> findAll(int page, int pagesize) {
+		EntityManager enma = JPAConfig.getEntityManager();
+		TypedQuery<Genre> query = enma.createNamedQuery("genre.findAll", Genre.class);
+		query.setFirstResult(page * pagesize);
+		query.setMaxResults(pagesize);
+		return query.getResultList();
+	}
 
 	@Override
 	public Genre findById(String gid) {

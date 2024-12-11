@@ -150,4 +150,21 @@ public class AccountDAOImpl implements AccountDAO {
 			enma.close();
 		}
 	}
+	
+	@Override
+	public Account findByEmail(String email) {
+	    EntityManager enma = JPAConfig.getEntityManager();
+	    try {
+	    	String jpql = "SELECT a FROM Account a WHERE a.email = :email AND a.isDeactivated = false";
+	        TypedQuery<Account> query = enma.createQuery(jpql, Account.class);
+	        query.setParameter("email", email);
+	        return query.getSingleResult();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;  
+	    } finally {
+	        enma.close();
+	    }
+	}
+
 }

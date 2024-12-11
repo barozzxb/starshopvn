@@ -56,12 +56,18 @@ public class GenreController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/user/genres");
             }
         }
-         else if (url.contains("/user/genres")) {
-             System.out.println("Fetching all genres...");
-             List<Genre> listgenre = genreServ.findAll(); // Lấy tất cả các thể loại
-             System.out.println("Genres fetched: " + listgenre); // Log danh sách thể loại
-             req.setAttribute("listgenre", listgenre);
-             req.getRequestDispatcher("/views/user/genres.jsp").forward(req, resp);
-         }
+        else if (url.contains("/user/genres")) {
+            System.out.println("Fetching all genres...");
+            List<Genre> listgenre = genreServ.findAll(); // Get all genres
+            System.out.println("Genres fetched: " + listgenre);
+            req.setAttribute("listgenre", listgenre);
+
+            List<Product> products = productServ.findAll(); // Get all products
+            System.out.println("All products fetched: " + products);
+            req.setAttribute("products", products);
+
+            req.getRequestDispatcher("/views/user/product/genres.jsp").forward(req, resp);
+        }
+    
     }
 }

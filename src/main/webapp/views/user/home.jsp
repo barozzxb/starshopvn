@@ -62,28 +62,4 @@
 </div>
 
 
-<div class="post-section py-4">
-    <div class="container">
-        <div class="row">
-            <c:if test="${not empty posts}">
-                <c:forEach items="${listprod}" var="post">
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="post-item card h-100">
-                            <img src="${post.image}" class="card-img-top" alt="${post.title}">
-                            <div class="card-body">
-                                <h5 class="card-title">${post.title}</h5>
-                                <p class="card-text text-muted">${post.author} • ${post.date}</p>
-                                <p class="card-text">${fn:substring(post.content, 0, 100)}...</p>
-                                <a href="${pageContext.request.contextPath}/user/post/detail?pid=${post.id}" 
-                                   class="btn btn-primary btn-sm">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </c:if>
-            <c:if test="${empty posts}">
-                <p>No posts available at the moment.</p>
-            </c:if>
-        </div>
-    </div>
-</div>
+

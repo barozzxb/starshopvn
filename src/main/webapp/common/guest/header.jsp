@@ -24,17 +24,7 @@
 				<li><a class="nav-link" href="services.html">Services</a></li>
 				<li><a class="nav-link" href="blog.html">Blog</a></li>
 				<li><a class="nav-link" href="contact.html">Contact us</a></li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Genres </a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<!-- Duyệt qua danh sách genres từ model -->
-						<c:forEach var="genre" items="${genres}">
-							<li><a class="dropdown-item"
-								href="${pageContext.request.contextPath}/user/genres/products?gid=${genre.gid}">${genre.gname}</a></li>
-						</c:forEach>
-					</ul></li>
+				
 			</ul>
 
 			<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">

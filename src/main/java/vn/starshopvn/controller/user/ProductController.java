@@ -12,31 +12,76 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import vn.starshopvn.entity.Genre;
+import vn.starshopvn.entity.Post;
 import vn.starshopvn.entity.Product;
 import vn.starshopvn.entity.Review;
+import vn.starshopvn.service.GenreService;
+import vn.starshopvn.service.PostService;
 import vn.starshopvn.service.ProductService;
 import vn.starshopvn.service.ReviewService;
+import vn.starshopvn.service.impl.GenreServiceImpl;
+import vn.starshopvn.service.impl.PostServiceImpl;
 import vn.starshopvn.service.impl.ProductServiceImpl;
 import vn.starshopvn.service.impl.ReviewServiceImpl;
 import vn.starshopvn.ultis.Constant;
 
-@WebServlet(urlPatterns = { "/user/products", "/user/product/detail", "/user/product/search" })
+@WebServlet(urlPatterns = { "/user/products", "/user/product/detail", "/user/product/search", "/user/post" })
 public class ProductController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private final ProductService proSer = new ProductServiceImpl();
-    private final ReviewService reviewSer = new ReviewServiceImpl(); // Thêm ReviewService
+	private static final long serialVersionUID = 1L;
+	ProductService productService = new ProductServiceImpl();
+	ReviewService reviewService = new ReviewServiceImpl();
+	GenreService genreService = new GenreServiceImpl();
+	PostService postService = new PostServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = req.getRequestURI();
         HttpSession session = req.getSession();
 
-        if (url.contains("products")) {
-            String upPath = Constant.upDir;
-            req.setAttribute("upPath", upPath);
-            List<Product> products = proSer.findAll();
+        if (url.contains("/user/products")) {
+            // Lấy danh sách thể loại
+            List<Genre> genres = genreService.findAll();
+            req.setAttribute("listgenre", genres);
+
+            // Lấy danh sách sản phẩm
+            List<Product> products = productService.findAll();
             req.setAttribute("products", products);
+
+            // Lấy danh sách bài viết
+            List<Post> posts = postService.findAll();
+            req.setAttribute("posts", posts);
+
+            req.getRequestDispatcher("/views/user/product/product-list.jsp").forward(req, resp);
+        }
+
+        else if (url.contains("/user/genres/products")) {
+            String gid = req.getParameter("gid");
+
+            if (gid != null && !gid.isEmpty()) {
+                List<Product> products = productService.findByGenre(gid);
+                req.setAttribute("products", products);
+            } else {
+                List<Product> products = productService.findAll();
+                req.setAttribute("products", products);
+            }
+
+            req.getRequestDispatcher("/views/user/product/product-list.jsp").forward(req, resp);
+        }
+
+        else if (url.contains("/user/post")) {
+            // Lấy tất cả các bài viết
+        	List<Post> posts = postService.findAll().stream()
+                    .map(post -> {
+                        if (post.getContent() == null) {
+                            post.setContent("Content not available.");
+                        }
+                        return post;
+                    })
+                    .collect(Collectors.toList());
+
+            req.setAttribute("posts", posts);
             req.getRequestDispatcher("/views/user/product/product-list.jsp").forward(req, resp);
         }
 
@@ -51,7 +96,7 @@ public class ProductController extends HttpServlet {
             String upPath = Constant.upDir;
             req.setAttribute("upPath", upPath);
 
-            Product product = proSer.findById(pid);
+            Product product = productService.findById(pid);
             if (product == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
                 return;
@@ -59,18 +104,14 @@ public class ProductController extends HttpServlet {
             req.setAttribute("product", product);
 
             // **Logic lấy danh sách đánh giá sản phẩm**
-            List<Review> reviews = reviewSer.findByProductId(pid);
+            List<Review> reviews = reviewService.findByProductId(pid);
             req.setAttribute("reviews", reviews);
 
             // Kiểm tra xem mediaUrl có phải là video không
             for (Review review : reviews) {
                 if (review.getMediaUrl() != null) {
                     String mediaUrl = review.getMediaUrl();
-                    if (mediaUrl.endsWith(".mp4") || mediaUrl.endsWith(".webm") || mediaUrl.endsWith(".ogg")) {
-                        review.setVideo(true);  // Thêm thuộc tính cho review
-                    } else {
-                        review.setVideo(false);
-                    }
+                    review.setVideo(mediaUrl.endsWith(".mp4") || mediaUrl.endsWith(".webm") || mediaUrl.endsWith(".ogg"));
                 }
             }
 
@@ -97,17 +138,16 @@ public class ProductController extends HttpServlet {
             req.getRequestDispatcher("/views/user/product/product-detail.jsp").forward(req, resp);
         }
 
-
-        else if (url.contains("search")) {
+        else if (url.contains("/user/product/search")) {
             String search = req.getParameter("search");
             if (search != null && !search.strip().isEmpty()) {
-                List<Product> list = proSer.findByName(search);
-                req.setAttribute("products", list);
-                req.getRequestDispatcher("/views/user/product/product-search.jsp").forward(req, resp);
-                return;
+                List<Product> products = productService.findByName(search);
+                req.setAttribute("products", products);
+            } else {
+                List<Product> products = productService.findAll();
+                req.setAttribute("products", products);
             }
-            List<Product> list = proSer.findAll();
-            req.setAttribute("products", list);
+
             req.getRequestDispatcher("/views/user/product/product-list.jsp").forward(req, resp);
         }
     }

@@ -35,6 +35,9 @@ public class Post {
 	@Column(name = "title", columnDefinition = "nvarchar(255)")
 	private String title;
 	
+	@Column(name = "author", columnDefinition = "nvarchar(255)")
+	private String author;
+	
 	@Column(name = "content", columnDefinition = "nvarchar(5000)")
 	private String content;
 	

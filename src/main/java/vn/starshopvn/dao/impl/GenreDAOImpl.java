@@ -68,10 +68,14 @@ public class GenreDAOImpl implements GenreDAO{
 
 	@Override
 	public List<Genre> findAll() {
-		EntityManager enma = JPAConfig.getEntityManager();
-		TypedQuery<Genre> list = enma.createNamedQuery("genre.findAll", Genre.class);
-		return list.getResultList();
+	    EntityManager enma = JPAConfig.getEntityManager();
+	    TypedQuery<Genre> list = enma.createNamedQuery("genre.findAll", Genre.class);
+
+	    List<Genre> genres = list.getResultList();
+	    System.out.println("Genres fetched from database: " + genres);
+	    return genres;
 	}
+
 
 	@Override
 	public Genre findById(String gid) {
@@ -82,12 +86,13 @@ public class GenreDAOImpl implements GenreDAO{
 
 	@Override
 	public Genre findByName(String gname) {
-		EntityManager enma = JPAConfig.getEntityManager();
-		String jpql = "select g from Genre g where gname like :gname";
-		TypedQuery<Genre> list = enma.createQuery(jpql, Genre.class);
-		list.setParameter("gname", gname);
-		return list.getSingleResult();
+	    EntityManager enma = JPAConfig.getEntityManager();
+	    String jpql = "SELECT g FROM Genre g WHERE g.gname = :gname"; // hoặc "LIKE" nếu cần
+	    TypedQuery<Genre> query = enma.createQuery(jpql, Genre.class);
+	    query.setParameter("gname", gname);
+	    return query.getSingleResult();
 	}
+
 
 	@Override
 	public int countProducts(String gid) {

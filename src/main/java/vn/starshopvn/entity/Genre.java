@@ -2,10 +2,8 @@ package vn.starshopvn.entity;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -31,10 +29,12 @@ public class Genre {
 	@Column(name="gname", columnDefinition = "NVARCHAR(255)")
 	private String gname;
 	
-	@Column(name="gdescription", columnDefinition = "NVARCHAR(5000)")
+	@Column(name="gdescription", columnDefinition = "NVARCHAR(MAX)")
 	private String gdescription;
 	
-	@OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	
+	
+	@OneToMany(mappedBy = "genre")
     private List<Product> products;
 	
 	@Transient

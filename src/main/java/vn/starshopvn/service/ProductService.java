@@ -1,5 +1,6 @@
 package vn.starshopvn.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import vn.starshopvn.entity.Product;
@@ -22,4 +23,9 @@ public interface ProductService {
 
 	List<Product> findAll();
 
+	List<Product> findByGenre(String gid);
+
+	List<Product> searchProducts(String query, Integer rating, LocalDateTime createdAtFrom, LocalDateTime createdAtTo,
+			Integer minPrice, Integer maxPrice, Integer minQuantity, Integer maxQuantity, String sortBy,
+			boolean ascending);
 }

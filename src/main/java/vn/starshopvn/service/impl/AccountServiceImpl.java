@@ -6,6 +6,7 @@ import vn.starshopvn.dao.AccountDAO;
 import vn.starshopvn.dao.impl.AccountDAOImpl;
 import vn.starshopvn.entity.Account;
 import vn.starshopvn.service.AccountService;
+import vn.starshopvn.ultis.PasswordUtils;
 
 public class AccountServiceImpl implements AccountService{
 
@@ -62,8 +63,8 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public Account login(String userid, String password) {
 		Account acc = aDAO.findById(userid);
-		if (acc != null) {
-			if (password.equals(acc.getPassword())) {
+		if (acc != null && acc.isDeactivated() == false) {
+			if (PasswordUtils.checkPassword(password, acc.getPassword())) {
 				return acc;
 			} else return null;
 		} else return null;
@@ -94,5 +95,10 @@ public class AccountServiceImpl implements AccountService{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public Account findByEmail(String email) {
+		return aDAO.findByEmail(email);
 	}
 }

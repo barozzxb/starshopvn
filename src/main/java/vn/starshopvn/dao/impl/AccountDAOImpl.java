@@ -10,7 +10,7 @@ import vn.starshopvn.config.JPAConfig;
 import vn.starshopvn.dao.AccountDAO;
 import vn.starshopvn.entity.Account;
 
-public class AccountDAOImpl implements AccountDAO{
+public class AccountDAOImpl implements AccountDAO {
 
 	@Override
 	public void insert(Account account) {
@@ -38,7 +38,7 @@ public class AccountDAOImpl implements AccountDAO{
 			Account acc = enma.find(Account.class, id);
 			if (acc != null) {
 				enma.remove(acc);
-			}else {
+			} else {
 				throw new Exception("Doesn't exist!");
 			}
 			trans.commit();
@@ -71,7 +71,7 @@ public class AccountDAOImpl implements AccountDAO{
 	public int count() {
 		EntityManager enma = JPAConfig.getEntityManager();
 		Query listacc = enma.createQuery("select count(a) from Account a where a.role.roleid = 2");
-		return ((Long)listacc.getSingleResult()).intValue();
+		return ((Long) listacc.getSingleResult()).intValue();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class AccountDAOImpl implements AccountDAO{
 		query.setMaxResults(5);
 		return query.getResultList();
 	}
-	
+
 	@Override
 	public void setDeactive(String userid) {
 		EntityManager enma = JPAConfig.getEntityManager();
@@ -107,11 +107,11 @@ public class AccountDAOImpl implements AccountDAO{
 			trans.begin();
 			enma.merge(acc);
 			trans.commit();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			trans.rollback();
 			throw e;
-		}finally {
+		} finally {
 			enma.close();
 		}
 	}
@@ -126,11 +126,27 @@ public class AccountDAOImpl implements AccountDAO{
 			trans.begin();
 			enma.merge(acc);
 			trans.commit();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			trans.rollback();
 			throw e;
-		}finally {
+		} finally {
+			enma.close();
+		}
+	}
+
+	@Override
+	public Account findByEmail(String email) {
+		EntityManager enma = JPAConfig.getEntityManager();
+		try {
+			String jpql = "SELECT a FROM Account a WHERE a.email = :email AND a.isDeactivated = false";
+			TypedQuery<Account> query = enma.createQuery(jpql, Account.class);
+			query.setParameter("email", email);
+			return query.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
 			enma.close();
 		}
 	}

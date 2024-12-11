@@ -13,12 +13,17 @@
 		<form action="${pageContext.request.contextPath}/login" method="post">
 			<div class="form-group mb-3">
 				<label for="userid"><i class="fa fa-user"></i> User ID</label>
-				<input type="text" class="form-control" id="userid" placeholder="Enter your User ID" name="userid">
+				<input type="text" class="form-control" id="userid" placeholder="Enter your User ID" name="userid" required>
 			</div>
 			<div class="form-group mb-3">
-				<label for="password"><i class="fa fa-lock"></i> Password</label>
-				<input type="password" class="form-control" id="password" placeholder="Enter your Password" name="password">
-			</div>
+                <label for="password"><i class="fa fa-lock"></i> Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your Password" name="password" required>
+               <a href="${pageContext.request.contextPath}/forgot" class="float-end">Forgot password?</a>
+               <div class = "form-check">
+               		<input class="form-check-input" type="checkbox" value="true" id="remember" name="remember">
+               		<label class = "form-check-label" for = "remember">Remember me</label>
+               </div>
+            </div>
 			<div class="form-group mb-3">
 				<button type="submit" class="btn btn-primary btn-block w-100"><strong>Login</strong></button>
 			</div>

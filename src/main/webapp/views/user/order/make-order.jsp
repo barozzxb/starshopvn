@@ -57,10 +57,10 @@
 							        <input type="text" class="form-control" id="account" name="account" value="${account.name != null ? account.name  : account.userid }" disabled>
 							    </div>
 							    
-						    	<div class="mb-3">
-							        <label for="deinfoid" class="form-label">ID Địa chỉ</label>
-							        <input type="text" class="form-control" id="deinfoid" name="deinfoid" required>
-							    </div>
+<!-- 						    	<div class="mb-3"> -->
+<!-- 							        <label for="deinfoid" class="form-label">ID Địa chỉ</label> -->
+<!-- 							        <input type="text" class="form-control" id="deinfoid" name="deinfoid" required> -->
+<!-- 							    </div> -->
 							
 							    <div class="mb-3">
 							        <label for="daddress" class="form-label">Địa chỉ</label>

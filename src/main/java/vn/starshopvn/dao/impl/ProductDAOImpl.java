@@ -1,5 +1,6 @@
 package vn.starshopvn.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
@@ -123,18 +124,79 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public List<Product> searchProducts(String keyword) {
-		EntityManager em = JPAConfig.getEntityManager();
-	    String query = "SELECT * FROM products WHERE pname LIKE :keyword";
-	    return em.createQuery(query, Product.class)
-	                        .setParameter("keyword", "%" + keyword + "%")
-	                        .getResultList();
+	public List<Product> searchProducts(String query, Integer rating, Timestamp createdAtFrom, Timestamp createdAtTo, Integer minPrice, Integer maxPrice, Integer minQuantity, Integer maxQuantity, String sortBy, boolean ascending) {
+	    EntityManager em = JPAConfig.getEntityManager();
+	    
+	    // Bắt đầu xây dựng câu lệnh JPQL
+	    StringBuilder jpql = new StringBuilder("SELECT p FROM Product p WHERE 1=1");
+	    
+
+	    if (query != null && !query.isEmpty()) {
+	        jpql.append(" AND p.pname LIKE :query");
+	    }
+	    if (rating != null) {
+	        jpql.append(" AND p.prating >= :rating");
+	    }
+	    if (createdAtFrom != null) {
+	        jpql.append(" AND p.createdat >= :createdAtFrom");
+	    }
+	    if (createdAtTo != null) {
+	        jpql.append(" AND p.createdat <= :createdAtTo");
+	    }
+	    if (minPrice != null) {
+	        jpql.append(" AND p.pprice >= :minPrice");
+	    }
+	    if (maxPrice != null) {
+	        jpql.append(" AND p.pprice <= :maxPrice");
+	    }
+	    if (minQuantity != null) {
+	        jpql.append(" AND p.pquantity >= :minQuantity");
+	    }
+	    if (maxQuantity != null) {
+	        jpql.append(" AND p.pquantity <= :maxQuantity");
+	    }
+
+	    // Thêm phần sắp xếp
+	    if (sortBy != null) {
+	        jpql.append(" ORDER BY p." + sortBy);
+	        jpql.append(ascending ? " ASC" : " DESC");
+	    }
+
+	    // Tạo query và thiết lập các tham số
+	    TypedQuery<Product> queryObj = em.createQuery(jpql.toString(), Product.class);
+	    
+	    if (query != null && !query.isEmpty()) {
+	        queryObj.setParameter("query", "%" + query + "%");
+	    }
+	    if (rating != null) {
+	        queryObj.setParameter("rating", rating);
+	    }
+	    if (createdAtFrom != null) {
+	        queryObj.setParameter("createdAtFrom", createdAtFrom);
+	    }
+	    if (createdAtTo != null) {
+	        queryObj.setParameter("createdAtTo", createdAtTo);
+	    }
+	    if (minPrice != null) {
+	        queryObj.setParameter("minPrice", minPrice);
+	    }
+	    if (maxPrice != null) {
+	        queryObj.setParameter("maxPrice", maxPrice);
+	    }
+	    if (minQuantity != null) {
+	        queryObj.setParameter("minQuantity", minQuantity);
+	    }
+	    if (maxQuantity != null) {
+	        queryObj.setParameter("maxQuantity", maxQuantity);
+	    }
+
+	    return queryObj.getResultList();
 	}
 
 	@Override
 	public List<Product> filterByGenre(List<String> genreIds) {
 		EntityManager em = JPAConfig.getEntityManager();
-	    String query = "SELECT * FROM products WHERE genre_id IN :genreIds";
+	    String query = "SELECT p FROM products p WHERE pgenre.gid IN :genreIds";
 	    return em.createQuery(query, Product.class)
 	                        .setParameter("genreIds", genreIds)
 	                        .getResultList();
@@ -143,7 +205,7 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<Product> filterByPrice(int maxPrice) {
 		EntityManager em = JPAConfig.getEntityManager();
-	    String query = "SELECT * FROM products WHERE pprice <= :maxPrice";
+	    String query = "SELECT p FROM products p WHERE p.pprice <= :maxPrice";
 	    return em.createQuery(query, Product.class)
 	                        .setParameter("maxPrice", maxPrice)
 	                        .getResultList();
@@ -152,7 +214,7 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<Product> searchAndFilter(List<String> genreIds, Integer maxPrice) {
 		EntityManager em = JPAConfig.getEntityManager();
-	    StringBuilder queryBuilder = new StringBuilder("SELECT * FROM products WHERE 1=1");
+	    StringBuilder queryBuilder = new StringBuilder("SELECT p FROM products p WHERE 1=1");
 	    
 	    if (genreIds != null && !genreIds.isEmpty()) {
 	        queryBuilder.append(" AND gid IN :genreIds");

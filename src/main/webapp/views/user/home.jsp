@@ -3,6 +3,8 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url value="/" var="URL"></c:url>
 
+
+
 <div class="hero">
 	<div class="container">
 		<div class="row justify-content-between">
@@ -23,6 +25,73 @@
 		</div>
 	</div>
 </div>
+
+<div class="search-bar-section bg-white py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <form action="${pageContext.request.contextPath}/user/product/search" method="get" class="search-bar-form d-flex">
+                    <input 
+                        type="text" 
+                        name="query" 
+                        class="form-control rounded-start" 
+                        placeholder="Search for products, brands, or categories..." 
+                        aria-label="Search"
+                        required>
+                    <button type="submit" class="btn btn-primary rounded-end">
+                        <i class="fa fa-search"></i> <!-- Biểu tượng tìm kiếm -->
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-2 border">
+<!-- 	    <div class="row"> -->
+<!-- 	        <div class="col-12 text-center mb-5"> -->
+<!-- 	            <h2 class="mb-4 section-title">Các thể loại sản phẩm</h2> -->
+<!-- 	        </div> -->
+<!-- 	    </div> -->
+
+		<div id="demo" class="carousel slide" data-bs-ride="carousel">
+		    <div class="carousel-inner">
+		        <c:set var="slideIndex" value="0"/>
+		        <c:forEach items="${genres}" var="genre" varStatus="status">
+		            <!-- Mỗi slide mới bắt đầu sau 4 genre -->
+		            <c:if test="${status.index % 4 == 0}">
+		                <!-- Nếu là slide đầu tiên -->
+		                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+		                    <div class="row justify-content-center">
+		            </c:if>
+		
+		            <!-- Hiển thị genre -->
+		            <div class="col-12 col-md-3 mb-5 mb-md-0">
+		                <div class="card shadow-sm border-light cdbg-light-green">
+		                    <div class="card-body text-center">
+		                        <h5 class="card-title">${genre.gname}</h5>
+		                        <p><em>${genre.productCount} sản phẩm</em></p>
+		                        <a href="${pageContext.request.contextPath}/user/genre/products?gid=${genre.gid}" class="btn btn-primary">Xem chi tiết <i class="fa fa-arrow-right"></i></a>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <!-- Kết thúc slide sau khi có 4 genre -->
+		            <c:if test="${status.index % 4 == 3 || status.last}">
+		                </div> <!-- End row -->
+		                </div> <!-- End carousel-item -->
+		            </c:if>
+		        </c:forEach>
+		    </div>
+		
+		    <!-- Left and right controls/icons -->
+		    <button class="carousel-control-prev text-dark-gray" type="button" data-bs-target="#demo" data-bs-slide="prev">
+		        <span class="carousel-control-prev-icon text-dark-gray"></span>
+		    </button>
+		    <button class="carousel-control-next text-dark-gray" type="button" data-bs-target="#demo" data-bs-slide="next">
+				<span class="carousel-control-next-icon text-dark-gray"></span>
+		    </button>
+		</div>
 
 <div class="product-section">		
 	<div class="container py-5 border bg-white">
@@ -72,50 +141,4 @@
 			</c:forEach>
 		</div>
 	</div>
-	
-	<div class="container py-5 border bg-white">
-	    <div class="row">
-	        <div class="col-12 text-center mb-5">
-	            <h2 class="mb-4 section-title">Các thể loại sản phẩm</h2>
-	        </div>
-	    </div>
-
-		<div id="demo" class="carousel slide" data-bs-ride="carousel">
-		    <div class="carousel-inner">
-		        <c:set var="slideIndex" value="0"/>
-		        <c:forEach items="${genres}" var="genre" varStatus="status">
-		            <!-- Mỗi slide mới bắt đầu sau 4 genre -->
-		            <c:if test="${status.index % 4 == 0}">
-		                <!-- Nếu là slide đầu tiên -->
-		                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
-		                    <div class="row justify-content-center">
-		            </c:if>
-		
-		            <!-- Hiển thị genre -->
-		            <div class="col-12 col-md-3 mb-5 mb-md-0">
-		                <div class="card shadow-sm border-light cdbg-light-green">
-		                    <div class="card-body text-center">
-		                        <h5 class="card-title">${genre.gname}</h5>
-		                        <p><em>${genre.productCount} sản phẩm</em></p>
-		                        <a href="${pageContext.request.contextPath}/user/genre/products?gid=${genre.gid}" class="btn btn-primary">Xem chi tiết <i class="fa fa-arrow-right"></i></a>
-		                    </div>
-		                </div>
-		            </div>
-		
-		            <!-- Kết thúc slide sau khi có 4 genre -->
-		            <c:if test="${status.index % 4 == 3 || status.last}">
-		                </div> <!-- End row -->
-		                </div> <!-- End carousel-item -->
-		            </c:if>
-		        </c:forEach>
-		    </div>
-		
-		    <!-- Left and right controls/icons -->
-		    <button class="carousel-control-prev text-dark-gray" type="button" data-bs-target="#demo" data-bs-slide="prev">
-		        <span class="carousel-control-prev-icon text-dark-gray"></span>
-		    </button>
-		    <button class="carousel-control-next text-dark-gray" type="button" data-bs-target="#demo" data-bs-slide="next">
-				<span class="carousel-control-next-icon text-dark-gray"></span>
-		    </button>
-		</div>
 </div>

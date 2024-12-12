@@ -92,8 +92,8 @@ public class ProductController extends HttpServlet {
         // Tìm kiếm sản phẩm
         else if (url.contains("search")) {
 			String keyword = req.getParameter("search");
-			List<Product> products = proSer.searchProducts(keyword);
-			req.setAttribute("products", products);
+			
+			req.setAttribute("products", "products");
 			req.getRequestDispatcher("/views/product/product-list.jsp").forward(req, resp);
 		} else if (url.contains("filter")) {
 			String[] genresFilter = req.getParameterValues("genres");

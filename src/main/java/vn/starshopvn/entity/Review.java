@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Review {
 
     @Id
-    @Column(name = "reviewid", columnDefinition = "varchar(255)")
+    @Column(name = "reviewId", columnDefinition = "varchar(255)")
     private String reviewId; 
 
     @Column(name = "rating", nullable = false)
@@ -32,13 +32,13 @@ public class Review {
     @Column(name = "comment", columnDefinition = "nvarchar(5000)", nullable = false)
     private String comment; 
 
-    @Column(name = "mediaurl", columnDefinition = "varchar(1000)")
+    @Column(name = "mediaUrl", columnDefinition = "varchar(1000)")
     private String mediaUrl; 
     
-    @Column(name = "createdat", columnDefinition = "timestamp", nullable = false)
+    @Column(name = "createdAt", columnDefinition = "timestamp", nullable = false)
     private Timestamp createdAt;
     
-    @Column(name = "isvideo", columnDefinition = "boolean default false")
+    @Column(name = "isVideo", columnDefinition = "boolean default false")
     private boolean isVideo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,7 +47,7 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", nullable = false)
-    private Account account;
+    private Account account; // Người dùng đã mua sản phẩm và đánh giá
     
     @PrePersist
     protected void onCreate() {

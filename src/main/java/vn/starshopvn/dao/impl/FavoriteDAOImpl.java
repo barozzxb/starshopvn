@@ -7,27 +7,27 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import vn.starshopvn.config.JPAConfig;
 import vn.starshopvn.dao.FavoriteDAO;
-import vn.starshopvn.entity.Favorite;
+import vn.starshopvn.entity.Favorites;
 
 
 public class FavoriteDAOImpl implements FavoriteDAO{
 
 	@Override
-	public List<Favorite> findAll() {
+	public List<Favorites> findAll() {
 		EntityManager enma = JPAConfig.getEntityManager();
-		TypedQuery<Favorite> fav = enma.createNamedQuery("favorite.findAll", Favorite.class);
+		TypedQuery<Favorites> fav = enma.createNamedQuery("favorite.findAll", Favorites.class);
 		return fav.getResultList();
 	}
 
 	@Override
-	public Favorite findById(String fid) {
+	public Favorites findById(String fid) {
 		EntityManager enma = JPAConfig.getEntityManager();
-		Favorite favo = enma.find(Favorite.class, fid);
+		Favorites favo = enma.find(Favorites.class, fid);
 		return favo;
 	}
 
 	@Override
-	public void insert(Favorite favorite) {
+	public void insert(Favorites favorite) {
 		EntityManager enma = JPAConfig.getEntityManager();
 		EntityTransaction trans = enma.getTransaction();
 		try {
@@ -52,7 +52,7 @@ public class FavoriteDAOImpl implements FavoriteDAO{
 		EntityTransaction trans = enma.getTransaction();
 		try {
 			trans.begin();
-			Favorite favorite = enma.find(Favorite.class, fid);
+			Favorites favorite = enma.find(Favorites.class, fid);
 			if (favorite !=null) {
 				enma.remove(favorite);
 			}
@@ -71,22 +71,26 @@ public class FavoriteDAOImpl implements FavoriteDAO{
 	}
 
 	@Override
-	public List<Favorite> findByUserId(String userid) {
+	public List<Favorites> findByUserId(String userid) {
 		EntityManager enma = JPAConfig.getEntityManager();
 	    try {
+	        // JPQL truy vấn danh sách sản phẩm thuộc thể loại cụ thể
 	        String jpql = "SELECT f FROM Favorites f WHERE f.account.userid = :userid";
-	        TypedQuery<Favorite> query = enma.createQuery(jpql, Favorite.class);
-	        query.setParameter("userid", userid); 
+	        TypedQuery<Favorites> query = enma.createQuery(jpql, Favorites.class);
+	        query.setParameter("userid", userid); // Thiết lập giá trị gid cho tham số trong JPQL
 
-	        return query.getResultList();
+	        return query.getResultList(); // Trả về danh sách sản phẩm
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return null;
+	        return null; // Trả về null nếu xảy ra lỗi
 	    } finally {
 	        if (enma != null && enma.isOpen()) {
-	            enma.close();
+	            enma.close(); // Đảm bảo đóng EntityManager
 	        }
 	    }
 
 	}
+
+
+
 }

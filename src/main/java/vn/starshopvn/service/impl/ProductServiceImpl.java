@@ -1,5 +1,6 @@
 package vn.starshopvn.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import vn.starshopvn.dao.ProductDAO;
@@ -92,8 +93,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> searchProducts(String keyword) {
-		return pDAO.searchProducts(keyword);
+	public List<Product> searchProducts(String query, Integer rating, Timestamp createdAtFrom, Timestamp createdAtTo, Integer minPrice, Integer maxPrice, Integer minQuantity, Integer maxQuantity, String sortBy, boolean ascending) {
+	    return pDAO.searchProducts(query, rating, createdAtFrom, createdAtTo, minPrice, maxPrice, minQuantity, maxQuantity, sortBy, ascending);
 	}
 	
 	@Override
@@ -110,4 +111,5 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> findByGenre(String gid){
 		return pDAO.findByGenre(gid);
 	}
+	
 }

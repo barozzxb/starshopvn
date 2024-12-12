@@ -45,6 +45,10 @@
 							href="${pageContext.request.contextPath }/logout">Đăng Xuất</a></li>
 					</c:when>
 				</c:choose>
+				<li><a class="nav-link"
+					href="${pageContext.request.contextPath}/user/product/favorites"><i
+						class="fa fa-heart"></i></a></li>
+				
 				<li>
 				    <a class="nav-link" href="${pageContext.request.contextPath}/user/cart/view" data-bs-toggle="tooltip" title="Xem giỏ hàng">
 				        <i class="fa fa-shopping-bag"></i>

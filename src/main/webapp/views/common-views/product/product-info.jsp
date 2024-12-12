@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+
 <c:url value="/" var="URL"></c:url>
 <c:url value="/image?fname=${product.ppicture}" var="productImage"></c:url>
 
@@ -42,7 +45,7 @@
                     </c:forEach>
                 </span>
             </div>
-
+	
             <!-- Actions -->
             <div class="d-flex align-items-center gap-3">
                 <form action="${pageContext.request.contextPath }/user/cart/add" method="post" class="d-inline-block">
@@ -51,6 +54,14 @@
                         <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
                     </button>
                 </form>
+                <form action="${pageContext.request.contextPath}/user/product/like"
+					method="post" class="mt-3">
+					<input type="hidden" name="pid" value="${product.pid}">
+					<button type="submit" class="btn btn-danger mt-2">
+						<i class="fa fa-heart"></i> Yêu thích
+					</button>
+				</form>
+                
                 <a href="${backUrl}" class="btn btn-outline-secondary btn-lg">Quay lại</a>
             </div>
         </div>
@@ -87,3 +98,48 @@
 		</div>
     </c:if>
 </div>
+
+<!-- Product Reviews -->
+		<div class="product-reviews mt-5">
+			<h3>Reviews</h3>
+			<c:if test="${not empty reviews}">
+				<ul class="reviews-list">
+					<c:forEach var="review" items="${reviews}">
+						<li class="review">
+							<div class="review-header">
+								<strong>${review.account.name}</strong> - ${review.rating} sao
+							</div>
+							<div class="review-content">
+								<p>${review.comment}</p>
+								<c:if test="${not empty review.mediaUrl}">
+									<c:choose>
+										<c:when
+											test="${fn:endsWith(review.mediaUrl, '.mp4') || fn:endsWith(review.mediaUrl, '.avi')}">
+											<video controls class="img-fluid"
+												style="max-width: 100%; height: auto;">
+												<source
+													src="${pageContext.request.contextPath}${review.mediaUrl}"
+													type="video/mp4">
+												Video không hỗ trợ.
+											</video>
+										</c:when>
+										<c:otherwise>
+											<img
+												src="${pageContext.request.contextPath}${review.mediaUrl}"
+												alt="Review Image" class="img-fluid">
+
+
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+
+							</div> <small>${review.createdAt}</small>
+						</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+			<c:if test="${empty reviews}">
+				<p>No reviews yet.</p>
+			</c:if>
+		</div>
+

@@ -36,6 +36,7 @@ public class OrderController extends HttpServlet{
 	CartService cServ = new CartServiceImpl();
 	ProductService prodServ = new ProductServiceImpl();
 	OrderService oServ = new OrderServiceImpl();
+
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,6 +48,7 @@ public class OrderController extends HttpServlet{
 			Account acc = (Account) session.getAttribute("account");
 			if (url.contains("orders")) {
 				List<Order> orders = oServ.getAllOrdersByUserId(acc.getUserid());
+				
 				req.setAttribute("orders", orders);
 				req.getRequestDispatcher("/views/user/order/orders.jsp").forward(req, resp);
 			} else if (url.contains("make")) {

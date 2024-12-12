@@ -72,4 +72,9 @@ public class OrderServiceImpl implements OrderService{
 	public double getTotalRevenue() {
 		return oDAO.getTotalRevenue();
 	}
+
+	@Override
+	public List<OrderDetail> getOrderItems(String oid) {
+		return oDAO.getOrderItems(oid);
+	}
 }

@@ -5,21 +5,20 @@ import java.util.List;
 import vn.starshopvn.entity.Review;
 
 public interface ReviewService {
+	void insert(Review review); 
 
-	double averageRatingByProductId(String pid);
+    void deleteById(String reviewId) throws Exception; 
 
-	List<Review> findByUserId(String userid);
+    void update(Review review); 
 
-	List<Review> findByProductId(String pid);
+    Review findById(String reviewId); 
 
-	List<Review> findAll();
+    List<Review> findAll(); 
 
-	Review findById(String reviewId);
+    List<Review> findByProductId(String pid); 
 
-	void update(Review review);
+    List<Review> findByUserId(String userid);
 
-	void deleteById(String reviewId) throws Exception;
-
-	void insert(Review review);
+    double averageRatingByProductId(String pid); 
 
 }

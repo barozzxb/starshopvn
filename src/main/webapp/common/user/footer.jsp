@@ -69,7 +69,7 @@
 						<script>
 							document.write(new Date().getFullYear());
 						</script>
-						. All Rights Reserved. &mdash;
+						. All Rights Reserved. &mdash; Hai Anh - Quoc Bao - Xuan Bao - Bao Chau
 					</p>
 				</div>
 

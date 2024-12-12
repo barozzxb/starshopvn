@@ -30,8 +30,8 @@
                             <fmt:formatNumber value="${favorite.product.pprice}" type="currency" currencySymbol="" /> vnđ
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/user/product/detail?pid=${favorite.product.pid}" class="btn btn-info btn-sm">View Details</a>
-                            <a href="${pageContext.request.contextPath}/user/product/delete?fid=${favorite.fid}" class="btn btn-danger btn-sm">Remove</a>
+                            <a href="${pageContext.request.contextPath}/user/product/detail?pid=${favorite.product.pid}" class="btn btn-info btn-sm">Trở về</a>
+                            <a href="${pageContext.request.contextPath}/user/product/delete?fid=${favorite.fid}" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
                     </tr>
                 </c:forEach>

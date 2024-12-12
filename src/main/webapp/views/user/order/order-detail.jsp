@@ -17,15 +17,20 @@
                 <th>Số lượng</th>
                 <th>Giá</th>
                 <th>Thành tiền</th>
+                <th>Đánh giá</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="detail" items="${order.orderDetails}">
                 <tr>
                     <td>${detail.product.pname}</td>
-                    <td>${detail.quantity}</td>
+                    <td>${detail.dquantity}</td>
                     <td><fmt:formatNumber value="${detail.product.pprice}" type="number" currencySymbol="" /> vnđ</td>
-                    <td><fmt:formatNumber value="${detail.quantity * detail.product.pprice}" type="number" currencySymbol="" /> vnđ</td>
+                    <td><fmt:formatNumber value="${detail.dquantity * detail.product.pprice}" type="number" currencySymbol="" /> vnđ</td>
+                    <td> 
+                    <a href="${pageContext.request.contextPath}/user/product/review?pid=${detail.product.pid}"
+										class="btn btn-primary">Đánh giá sản phẩm</a>
+					</td>
                 </tr>
             </c:forEach>
         </tbody>

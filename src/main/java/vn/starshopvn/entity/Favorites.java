@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="Favorites")
-@NamedQuery(name="favorite.findAll", query="select f from Favorite f")
-public class Favorite implements Serializable{
+@NamedQuery(name="favorite.findAll", query="select f from Favorites f")
+public class Favorites implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -36,6 +36,14 @@ public class Favorite implements Serializable{
 	@JoinColumn(name = "pid", nullable = false) 
 	private Product product;
 	
-	
+	@Override
+	public String toString() {
+	    return "Favorites{" +
+	            "fid='" + fid + '\'' +
+	            ", accountId=" + (account != null ? account.getUserid() : "null") +
+	            ", productId=" + (product != null ? product.getPid() : "null") +
+	            '}';
+	}
+
 
 }

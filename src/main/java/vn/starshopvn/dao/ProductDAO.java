@@ -1,5 +1,6 @@
 package vn.starshopvn.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import vn.starshopvn.entity.Product;
@@ -29,12 +30,15 @@ public interface ProductDAO {
 
 	List<Product> filterByGenre(List<String> genreIds);
 
-	List<Product> searchProducts(String keyword);
 
 	List<TopSellingProduct> topSellingProducts();
 
 	List<Product> findAll(int page, int pagesize);
 
 	List<Product> findByGenre(String gid);
+
+	List<Product> searchProducts(String query, Integer rating, Timestamp createdAtFrom, Timestamp createdAtTo,
+			Integer minPrice, Integer maxPrice, Integer minQuantity, Integer maxQuantity, String sortBy,
+			boolean ascending);
 
 }

@@ -4,25 +4,24 @@ import java.util.List;
 
 import vn.starshopvn.dao.FavoriteDAO;
 import vn.starshopvn.dao.impl.FavoriteDAOImpl;
-import vn.starshopvn.entity.Favorite;
+import vn.starshopvn.entity.Favorites;
 import vn.starshopvn.service.FavoriteService;
-
 
 public class FavoriteServiceImpl implements FavoriteService{
 
 	FavoriteDAO favDao=new FavoriteDAOImpl();
 	@Override
-	public List<Favorite> findAll() {
+	public List<Favorites> findAll() {
 		return favDao.findAll();
 	}
 
 	@Override
-	public Favorite findById(String fid) {
+	public Favorites findById(String fid) {
 		return favDao.findById(fid);
 	}
 
 	@Override
-	public boolean insert(Favorite favorite) {
+	public boolean insert(Favorites favorite) {
 		if (favDao.findById(favorite.getFid()) != null) {
 			return false;
 		}
@@ -51,7 +50,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
-	public List<Favorite> findByUserId(String userid) {
+	public List<Favorites> findByUserId(String userid) {
 		return favDao.findByUserId(userid);
 	}
 

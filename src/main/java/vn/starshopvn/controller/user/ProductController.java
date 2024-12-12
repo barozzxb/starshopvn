@@ -1,6 +1,7 @@
 package vn.starshopvn.controller.user;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -112,14 +113,39 @@ public class ProductController extends HttpServlet {
 
             session.setAttribute("viewedProducts", viewedProducts);
 
-            req.getRequestDispatcher("/views/user/product/product-detail.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/common-views/product/product-info.jsp").forward(req, resp);
         }
 
 		else if (url.contains("search")) {
-			String keyword = req.getParameter("search");
-			List<Product> products = proSer.searchProducts(keyword);
-			req.setAttribute("products", products);
-			req.getRequestDispatcher("/views/product/product-list.jsp").forward(req, resp);
+//			String keyword = req.getParameter("search");
+//			List<Product> products = proSer.searchProducts(keyword);
+//			req.setAttribute("products", products);
+//			req.getRequestDispatcher("/views/common-views/product/product-list.jsp").forward(req, resp);
+			// Lấy các tham số từ form tìm kiếm
+	        String query = req.getParameter("query");
+	        Integer rating = req.getParameter("rating") != null ? Integer.parseInt(req.getParameter("rating")) : null;
+	        Timestamp createdAtFrom = req.getParameter("createdAtFrom") != null 
+	        	    ? Timestamp.valueOf(req.getParameter("createdAtFrom")) 
+	        	    : null;
+
+	        	Timestamp createdAtTo = req.getParameter("createdAtTo") != null 
+	        	    ? Timestamp.valueOf(req.getParameter("createdAtTo")) 
+	        	    : null;
+
+	        Integer minPrice = req.getParameter("minPrice") != null ? Integer.parseInt(req.getParameter("minPrice")) : null;
+	        Integer maxPrice = req.getParameter("maxPrice") != null ? Integer.parseInt(req.getParameter("maxPrice")) : null;
+	        Integer minQuantity = req.getParameter("minQuantity") != null ? Integer.parseInt(req.getParameter("minQuantity")) : null;
+	        Integer maxQuantity = req.getParameter("maxQuantity") != null ? Integer.parseInt(req.getParameter("maxQuantity")) : null;
+	        String sortBy = req.getParameter("sortBy");
+	        boolean ascending = Boolean.parseBoolean(req.getParameter("ascending"));
+
+	        // Tìm kiếm sản phẩm
+	        List<Product> products = proSer.searchProducts(query, rating, createdAtFrom, createdAtTo, minPrice, maxPrice, minQuantity, maxQuantity, sortBy, ascending);
+
+	        // Gửi kết quả về phía người dùng
+	        req.setAttribute("products", products);
+	        req.getRequestDispatcher("/views/common-views/product/productList.jsp").forward(req, resp);
+
 		} else if (url.contains("filter")) {
 			String[] genresFilter = req.getParameterValues("genres");
 			List<String> gFilter = null;
@@ -129,11 +155,11 @@ public class ProductController extends HttpServlet {
 			int price = Integer.parseInt(req.getParameter("price"));
 			List<Product> products = proSer.searchAndFilter(gFilter, price);
 			req.setAttribute("products", products);
-			req.getRequestDispatcher("/views/product/product-list.jsp").forward(req, resp);
+			req.getRequestDispatcher("/views/common-views/product/product-info.jsp").forward(req, resp);
 		} else if (url.contains("reset")) {
 			List<Product> products = proSer.findAll();
 			req.setAttribute("products", products);
-			req.getRequestDispatcher("/views/product/product-list.jsp").forward(req, resp);
+			req.getRequestDispatcher("/views/common-views/product/product-info.jsp").forward(req, resp);
 		}
 	}
 }

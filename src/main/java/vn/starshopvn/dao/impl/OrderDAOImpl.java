@@ -91,7 +91,7 @@ public class OrderDAOImpl implements OrderDAO{
 		EntityManager enma = JPAConfig.getEntityManager();
 		String jpql = "select sum(od.cost) from Order od";
 		TypedQuery<Long> query = enma.createQuery(jpql, Long.class);
-		return query.getSingleResult();
+		return query.getSingleResult() != null ? query.getSingleResult() : 0;
 	}
 	
 	@Override
@@ -147,4 +147,13 @@ public class OrderDAOImpl implements OrderDAO{
                       ))
                       .toList();
     }
+	
+	@Override
+	public List<OrderDetail> getOrderItems(String oid){
+		EntityManager enma = JPAConfig.getEntityManager();
+		String jpql = "select od from OrderDetail od where od.order.oid = :oid";
+		TypedQuery<OrderDetail> query = enma.createQuery(jpql, OrderDetail.class);
+		query.setParameter("oid", oid);
+		return query.getResultList();
+	}
 }

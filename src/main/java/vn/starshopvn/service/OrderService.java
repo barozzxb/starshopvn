@@ -29,4 +29,6 @@ public interface OrderService {
 	int getTotalOrder();
 
 	double getTotalRevenue();
+	
+	List<OrderDetail> getOrderItems(String oid);
 }

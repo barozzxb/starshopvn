@@ -2,18 +2,14 @@ package vn.starshopvn.dao;
 
 import java.util.List;
 
-import vn.starshopvn.entity.Favorite;
+import vn.starshopvn.entity.Favorites;
 
 public interface FavoriteDAO {
-
-	List<Favorite> findByUserId(String userid);
-
-	void delete(String fid) throws Exception;
-
-	void insert(Favorite favorite);
-
-	Favorite findById(String fid);
-
-	List<Favorite> findAll();
+	List<Favorites> findAll(); 
+	Favorites findById(String fid); 
+	void insert(Favorites favorite);  
+	void delete (String fid)throws Exception; 
+	List<Favorites> findByUserId(String userid);
+	
 
 }

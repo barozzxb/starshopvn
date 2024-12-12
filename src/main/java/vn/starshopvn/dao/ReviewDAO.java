@@ -6,20 +6,19 @@ import vn.starshopvn.entity.Review;
 
 public interface ReviewDAO {
 
-	double averageRatingByProductId(String pid);
+    void insert(Review review); 
 
-	List<Review> findByUserId(String userid);
+    void deleteById(String reviewId) throws Exception; 
 
-	List<Review> findByProductId(String pid);
+    void update(Review review); 
 
-	List<Review> findAll();
+    Review findById(String reviewId); 
 
-	Review findById(String reviewId);
+    List<Review> findAll(); 
 
-	void update(Review review);
+    List<Review> findByProductId(String pid); 
 
-	void deleteById(String reviewId) throws Exception;
+    List<Review> findByUserId(String userid);
 
-	void insert(Review review);
-
+    double averageRatingByProductId(String pid); 
 }
